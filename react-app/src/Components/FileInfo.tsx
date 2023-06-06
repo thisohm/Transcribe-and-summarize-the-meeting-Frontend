@@ -4,19 +4,13 @@ import
     Button, Form, Input, Select, DatePicker,TimePicker
   } from 'antd';
 
-import dayjs from "dayjs";
-const dateFormat = "YYYY-MM-DD"
-const timeFormat = "HH:mm:ss"
-
-  const FileInfo = ({ nextStep, handleFormData, handleSelect, handleDate, handleTime,
-    values,meetdate,meettime }:any) => {
+const FileInfo = ({ nextStep, handleFormData, handleSelect, values }:any) => {
     
-
   return (
 
     <Form onFinish={nextStep}>
           <div style={{padding:"50px",margin:"auto",width:"800px"}}>
-              {/*Meeting Type*/}
+              
               <Form.Item initialValue={values.meettype} name={"meettype"} label="Meeting Type" rules={[{ required: true , message:'Meeting Type is required'}]}>
                 <Select
                   placeholder="Select a meeting type"
@@ -30,7 +24,83 @@ const timeFormat = "HH:mm:ss"
                 />
               </Form.Item>
             
-               {/*Select Meeting Type*/}
+               
+              <Form.Item
+                noStyle
+                shouldUpdate={(prevValues, currentValues) => prevValues.meettype !== currentValues.meettype}
+              >
+                {({ getFieldValue }) =>
+                  getFieldValue('meettype') === 'Meeting Online' ? (
+                    <Form.Item initialValue={values.meetapp} name={"meetapp"} label="Meeting Application" rules={[{ required: true , message:'Meeting Application is required'}]}>
+                      <Input defaultValue={values.meetapp} onChange={handleFormData("meetapp")} />
+                    </Form.Item>
+                  ) : null
+                }
+              </Form.Item>
+              <Form.Item
+                noStyle
+                shouldUpdate={(prevValues, currentValues) => prevValues.meettype !== currentValues.meettype}
+              >
+                {({ getFieldValue }) =>
+                  getFieldValue('meettype') === 'Meeting Offline'? (
+                    <Form.Item initialValue={values.location} name={"location"} label="Location" rules={[{ required: true,  message:'Location is required'}]}>
+                      <Input defaultValue={values.location} onChange={handleFormData("location")}/>
+                    </Form.Item>
+                  ) : null
+                  
+                }
+              </Form.Item>
+             
+              <Form.Item 
+                label="Topic"
+                initialValue={values.topic}
+                rules={[{required:true,message:'Topic is required'}]}
+                name={"topic"}
+                >
+              <Input defaultValue={values.topic} onChange={handleFormData("topic")} placeholder="Enter a topic" />
+              </Form.Item>
+              
+               
+                <Form.Item
+              label='Date' 
+              name={'meetdate'}
+              initialValue={values.meetdate}
+              rules={[{required:true, message:'Date is required'}]}>
+                <Input type="date" defaultValue={values.meetdate} onChange={handleFormData("meetdate")}/>
+              </Form.Item>
+
+              <Form.Item
+              label='Time' 
+              name={'meettime'}
+              initialValue={values.meettime}
+              rules={[{required:true, message:'Time is required'}]}>
+                <Input type="time" step="1" defaultValue={values.meettime} onChange={handleFormData("meettime")} />
+              </Form.Item>
+            
+              </div>
+              <Form.Item style={{padding:"20px"}}>
+                <Button type='primary' htmlType='submit'>Next</Button>
+              </Form.Item>
+          </Form>
+
+    /*
+        <Form onFinish={nextStep}>
+          <div style={{padding:"50px",margin:"auto",width:"800px"}}>
+              
+              <Form.Item initialValue={values.meettype} name={"meettype"} label="Meeting Type" rules={[{ required: true , message:'Meeting Type is required'}]}>
+                <Select
+                  placeholder="Select a meeting type"
+                  onSelect={handleSelect("meettype")}
+                  defaultValue={values.meettype}
+                  allowClear
+                  options={[
+                    {label:"Meeting Online", value:"Meeting Online"},
+                    {label:"Meeting Offline", value:"Meeting Offline"}
+                  ]}
+                />
+              </Form.Item>
+            
+               
               <Form.Item
                 noStyle
                 shouldUpdate={(prevValues, currentValues) => prevValues.meettype !== currentValues.meettype}
@@ -57,8 +127,7 @@ const timeFormat = "HH:mm:ss"
                   
                 }
               </Form.Item>
-              
-              {/*Topic*/}
+             
               <Form.Item 
                 label="Topic"
                 initialValue={values.topic}
@@ -68,7 +137,7 @@ const timeFormat = "HH:mm:ss"
               <Input defaultValue={values.topic} onChange={handleFormData("topic")} placeholder="Enter a topic" />
               </Form.Item>
               
-                {/*Date&Time*/}
+               
                 <Form.Item
               label='Date' 
               name={'meetdate'}
@@ -91,9 +160,9 @@ const timeFormat = "HH:mm:ss"
               <Form.Item style={{padding:"20px"}}>
                 <Button type='primary' htmlType='submit'>Next</Button>
               </Form.Item>
-            </Form>
-         
+          </Form> 
+    */
+
   )
 }
-
 export default FileInfo

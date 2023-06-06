@@ -4,30 +4,30 @@ import { Steps } from 'antd';
 import FileInfo from '../Components/FileInfo';
 import AgendaInfo from '../Components/AgendaInfo';
 import ImportInfo from '../Components/ImportInfo';
-import dayjs from 'dayjs';
-import localeData from 'dayjs/plugin/localeData';
 import moment from 'moment';
 
-dayjs.extend(localeData);
-
-export type FormData = {
-	//FileInfo
+export type fileinfoType = {
   meettype:string
 	meetapp:string
 	location:string
 	topic:string
-  //AgendaInfo
-  agendaTopic:string
-  detail:string
+  meetdate:string
+  meettime:string
 }
 
-const INITIAL_DATA: FormData = {
+const fileData : fileinfoType = {
 	meettype:"",
 	meetapp:"",
 	location:"",
 	topic:"",
-  agendaTopic:"",
-  detail:""
+  meetdate:"",
+  meettime:""
+}
+
+const agenData = {
+  agentopic:"",
+  agendetail:"",
+  agentime: ""
 }
 
 const Import:FC = () => {
@@ -35,10 +35,14 @@ const Import:FC = () => {
   //state for step
   const [step,setStep] = useState(0)
 
-  //state for form data
-  const [formData,setFormData] = useState<FormData>(INITIAL_DATA)
+  //state for fileinfo
+  const [formData,setFormData] = useState<fileinfoType>(fileData)
   const [meetdate,setMeetDate] = useState(moment().format("YYYY-MM-DD"))
   const [meettime,setMeetTime] = useState(moment().format("HH:mm:ss"))
+
+  //state for agendainfo
+  const [state,setState] = useState<any>([]) //initial form
+  const [agendaData,setAgendaData] = useState<any>([])
 
   //next step
   const nextStep = () =>{
@@ -50,7 +54,7 @@ const Import:FC = () => {
     setStep(step - 1)
   }
 
-  //set data
+  //set data FileInfo
   const handleInputData = (input:any) => (e:any) =>{
 	  const {value} = e.target
 
@@ -60,7 +64,7 @@ const Import:FC = () => {
 	  }))
   }
 
-  //set data select
+  //set data Select for FileInfo
   const handleSelect = (input:any) => (value:any) =>{
 
 	  setFormData((prevState) => ({
@@ -69,20 +73,27 @@ const Import:FC = () => {
 	  }))
   }
 
-  //set data date time
+  /*
+  //set datetime for FileInfo
   const handleDate = (value:any,valuestring:any) =>{
 	  setMeetDate(valuestring)
   }
   const handleTime = (value:any,valuestring:any) =>{
 	  setMeetTime(valuestring)
   }
+  */
+
+  //console.log(formData)
+  //console.log(agendaData)
 
   //component form
   const forms = [
-	<FileInfo nextStep={nextStep} handleFormData={handleInputData} handleSelect={handleSelect}  
-  handleDate={handleDate} handleTime={handleTime} values={formData} meetdate={meetdate} meettime={meettime}/>,
-	<AgendaInfo nextStep={nextStep} backStep={backStep} handleFormData={handleInputData} values={formData} />,
-	<ImportInfo backStep={backStep}/>
+	<FileInfo nextStep={nextStep} handleFormData={handleInputData} handleSelect={handleSelect} values={formData} />,
+	
+  <AgendaInfo nextStep={nextStep} backStep={backStep}
+  values={agendaData} setValues={setAgendaData} state={state} setState={setState}/>,
+	
+  <ImportInfo backStep={backStep}/>
   ]
 
   return (
