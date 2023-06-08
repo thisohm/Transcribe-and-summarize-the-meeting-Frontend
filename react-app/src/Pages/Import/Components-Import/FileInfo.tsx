@@ -1,0 +1,141 @@
+import './../../../index.css';
+import
+  {
+    Button, Form, Input, Select
+  } from 'antd';
+
+const FileInfo = ({ nextStep, setDisStep2, fileData, setFileData }:any) => {
+
+  //set data FileInfo
+  const handleInputData = (input:any) => (e:any) =>{
+	  const {value} = e.target
+
+	  setFileData((prevState:any) => ({
+		  ...prevState,
+		  [input]: value
+	  }))
+  }
+
+  //set data Select for FileInfo
+  const handleSelect = (input:any) => (value:any) =>{
+
+	  setFileData((prevState:any) => ({
+		  ...prevState,
+		  [input]: value
+	  }))
+  }
+
+  //set next step and disabled
+  const onFinish = () => {
+    nextStep()
+    setDisStep2(false)
+  }
+
+	return(
+    <Form onFinish={onFinish}>
+      <div style={{padding:"50px",margin:"auto",width:"800px",textAlign:"center"}}>
+              
+      	<Form.Item 
+          name="meettype" 
+          label="Meeting Type" 
+          initialValue={fileData.meettype} 
+					rules={[{ 
+						required: true,
+						message:'Meeting Type is required'
+					}]}>
+          
+					<Select
+            placeholder="Select a meeting type"
+            onSelect={handleSelect("meettype")}
+          	allowClear
+            options={[
+              {label:"Meeting Online", value:"Meeting Online"},
+              {label:"Meeting Offline", value:"Meeting Offline"}
+            ]}
+          />
+        </Form.Item>
+            
+        <Form.Item
+          noStyle
+          shouldUpdate={(prevValues, currentValues) => prevValues.meettype !== currentValues.meettype}
+        >
+          {({ getFieldValue }) =>
+            getFieldValue("meettype") === "Meeting Online" ? (
+              <Form.Item 
+                name="meetapp" 
+                label="Meeting Application" 
+                initialValue={fileData.meetapp} 
+                rules={[{ 
+                  required: true, 
+                  message:'Meeting Application is required'
+                }]}>
+                  <Input onChange={handleInputData("meetapp")} placeholder="Enter a meeting application" />
+              </Form.Item>
+           ) : null
+          }
+        </Form.Item>
+        <Form.Item
+          noStyle
+          shouldUpdate={(prevValues, currentValues) => prevValues.meettype !== currentValues.meettype}
+        >
+          {({ getFieldValue }) =>
+            getFieldValue("meettype") === "Meeting Offline"? (
+              <Form.Item 
+                name="location" 
+                label="Location" 
+                initialValue={fileData.location} 
+                rules={[{ 
+                  required: true,  
+                  message:'Location is required'
+                }]}>
+                  <Input onChange={handleInputData("location")} placeholder="Enter a location"/>
+              </Form.Item>
+            ) : null
+          }
+        </Form.Item>
+             
+        <Form.Item 
+          name="topic"
+          label="Topic"
+          initialValue={fileData.topic}
+          rules={[{
+            required:true,
+            message:"Topic is required"
+          }]}
+        >
+          <Input onChange={handleInputData("topic")} placeholder="Enter a topic" />
+        </Form.Item>
+              
+        <Form.Item
+          name="meetdate"
+          label="Date"
+          initialValue={fileData.meetdate}
+          rules={[{
+            required:true, 
+            message:"Date is required"
+          }]}>
+            <Input type="date" onChange={handleInputData("meetdate")}/>
+        </Form.Item>
+
+        <Form.Item
+          name="meettime"
+          label="Time"
+          initialValue={fileData.meettime}
+          rules={[{
+            required:true, 
+            message:'Time is required'
+          }]}
+        >
+            <Input type="time" step="1" onChange={handleInputData("meettime")} />
+        </Form.Item>
+
+      </div>
+
+      <Form.Item style={{padding:"20px"}}>
+        <Button type='primary' htmlType='submit'>Next</Button>
+      </Form.Item>
+
+    </Form>
+  )
+}
+export default FileInfo

@@ -9,9 +9,9 @@ import { Layout, Menu} from 'antd';
 import { Route,Routes,useNavigate, } from "react-router-dom";
 
 //Components
-import Import from "../Pages/Import";
-import Meeting from "../Pages/Meeting";
-import Trash from "../Pages/Trash";
+import Import from "../Pages/Import/Import";
+import Meeting from "../Pages/Meeting/Meeting";
+import Trash from "../Pages/Trash/Trash";
 
 const PageContent:FC = () =>{
   return(
