@@ -33,7 +33,7 @@ const FileInfo = ({ nextStep, setDisStep2, fileData, setFileData }:any) => {
 
 	return(
     <Form onFinish={onFinish}>
-      <div style={{padding:"50px",margin:"auto",width:"800px",textAlign:"center"}}>
+      <div style={{padding:"50px",margin:"auto",width:"800px"}}>
               
       	<Form.Item 
           name="meettype" 
@@ -130,7 +130,7 @@ const FileInfo = ({ nextStep, setDisStep2, fileData, setFileData }:any) => {
         </Form.Item>
 
       </div>
-
+      
       <Form.Item style={{padding:"20px"}}>
         <Button type='primary' htmlType='submit'>Next</Button>
       </Form.Item>

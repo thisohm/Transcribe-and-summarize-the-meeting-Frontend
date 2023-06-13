@@ -75,8 +75,8 @@ const Import:FC = () => {
     <p style={{padding:"15px"}}>Create Meetings</p>
       <Steps style={{padding:"20px",margin:"auto"}} onChange={setStep} current={step}>
         <Steps.Step title="File Information"/>
-        <Steps.Step disabled={disStep2} title="Agenda Information"/>
-        <Steps.Step disabled={disStep3} title="Import File"/>
+        <Steps.Step disabled={false} title="Agenda Information"/>
+        <Steps.Step disabled={false} title="Import File"/>
       </Steps>
 	    {forms[step]}
   </>

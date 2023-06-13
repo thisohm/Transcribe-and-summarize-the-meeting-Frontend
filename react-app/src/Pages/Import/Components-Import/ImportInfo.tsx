@@ -8,13 +8,13 @@ import
   {
     InboxOutlined,
   } from '@ant-design/icons';
-
-import axios from 'axios';
+import { createInfo } from '../../../Apis/Import-apis'
 
 const ImportInfo = ({backStep,title,setTitle,fileData,agendaData}:any) =>{
 
   const [fileUpload,setFileUpload] = useState<UploadFile[]>([])
   
+  /*
   const onSubmit = () => {
     const formData = new FormData()
     const file:any = fileUpload[0]
@@ -39,14 +39,22 @@ const ImportInfo = ({backStep,title,setTitle,fileData,agendaData}:any) =>{
     .catch((error) => {
       //
     })
-
-    console.log(fileData)
-    //console.log(agendaData)
   } 
+  */
+
+  
+  const onSubmit = () => {
+    createInfo({
+    meettype:fileData.meettype,meetapp:fileData.meetapp,location:fileData.location,
+    topic:fileData.topic,meetdate:fileData.meetdate,meettime:fileData.meettime,
+    agendaData
+    })
+    
+  }
 
   return (
     <Form onFinish={onSubmit}>
-      <div style={{padding:"50px",margin:"auto",width:"800px",textAlign:"center"}}>
+      <div style={{padding:"50px",margin:"auto",width:"800px"}}>
 
         <Form.Item 
           name="title" 

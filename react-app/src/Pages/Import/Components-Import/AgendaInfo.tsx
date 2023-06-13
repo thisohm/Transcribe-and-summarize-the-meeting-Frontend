@@ -66,7 +66,7 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
   return(
     
     <Form onFinish={onFinish}>
-      <div style={{padding:"50px",margin:"auto",width:"1000px",textAlign:"center"}}>
+      <div style={{padding:"auto",margin:"auto",width:"1100px"}}>
 
         <Form.List initialValue={state} name="AgenList">
           {(values, { add, remove }) => (
@@ -83,6 +83,7 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
                       required: true, 
                       message: "Please enter topic"
                     }]}
+                    style={{width:"200px"}}
                   >
                     <Input name="agentopic" onChange={(e)=>handleInputData(e,name)} placeholder="topic" />
                   </Form.Item>
@@ -96,19 +97,21 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
                       required: true, 
                       message: "Please enter detail" 
                     }]}
+                    style={{width:"700px"}}
                   >
                     <Input name='agendetail' onChange={(e)=>handleInputData(e,name)} placeholder="detail" />
                   </Form.Item>
 
                   <Form.Item
-                  {...restField}
-                  name={[name, "agentime"]}
-                  label="Time"
-                  initialValue={initialTime(name)}
-                  rules={[{ 
-                    required: true, 
-                    message: "Please enter time"
-                  }]}
+                    {...restField}
+                    name={[name, "agentime"]}
+                    label="Time"
+                    initialValue={initialTime(name)}
+                    rules={[{ 
+                      required: true, 
+                      message: "Please enter time"
+                    }]}
+                    style={{width:"200px"}}
                   >
                     <Input name="agentime" onChange={(e)=>handleInputData(e,name)} type="time" step="1" placeholder="Time"/>
                   </Form.Item>
