@@ -1,89 +1,97 @@
-import React from 'react';
+import {useEffect,useState} from 'react';
 import '../../../index.css';
-import { Space, Table, Tag } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { Table,Popconfirm } from 'antd';
+import axios from "axios"
+import {
+  DeleteOutlined
+} from "@ant-design/icons"
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
-}
-
-const columns: ColumnsType<DataType> = [
+const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
+    title: 'Topic',
+    dataIndex: 'topic',
+    key: 'topic',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Type of Meeting',
+    dataIndex: 'meettype',
+    key: 'meettype',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: 'Date',
+    dataIndex: 'meetdate',
+    key: 'meetdate',
   },
   {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    title: 'Time',
+    dataIndex: 'meettime',
+    key: 'meettime',
   },
   {
     title: 'Action',
+    dataIndex: 'action',
     key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
+  }
+]
 
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+const DataTable = () => {
 
-const dataTable: React.FC = () => <Table columns={columns} dataSource={data} />;
+  const [meetList,setMeetList] = useState([])
 
-export default dataTable;
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  const loadData = async () => {
+
+    await axios.get('http://localhost:13001/api/meeting/list')
+    .then((response)=>{
+      setMeetList(response.data.result.map((item:any,index:any) => 
+        ({
+          key:index,topic:item.topic,meettype:item.meettype,meetdate:item.meetdate,meettime:item.meettime,
+          action:
+          <Popconfirm
+            title="Delete the meeting"
+            description="Are you sure to delete this meeting ?"
+            okText="Yes"
+            cancelText="No"
+            onConfirm={()=>handleDelete(item.meeting_id)}
+          >
+            <DeleteOutlined style={{color:"red"}} />
+          </Popconfirm>
+        })
+      ))
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+
+  const handleDelete =  async (meeting_id:any) => {
+    
+    let config = {
+      method: 'delete',
+      maxBodyLength: Infinity,
+      url: 'http://localhost:13001/api/meeting/delete',
+      data : {meeting_id:meeting_id}
+    }
+    
+    await axios.request(config)
+    .then((response)=>{
+      console.log(response.data.message)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+
+    window.location.reload()
+  }
+
+  return(
+    <>
+      <Table style={{padding:"10px",margin:"auto"}}  columns={columns} dataSource={meetList} />
+    </>
+  )
+}
+
+export default DataTable;

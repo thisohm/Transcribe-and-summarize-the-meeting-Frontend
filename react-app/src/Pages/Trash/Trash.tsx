@@ -3,7 +3,7 @@ import React,{FC} from 'react'
 const Trash:FC = () => {
   return (
     <>
-      <p>Trash</p>
+      <p style={{padding:"15px"}}>Trash</p>
     </>
   )
 }
