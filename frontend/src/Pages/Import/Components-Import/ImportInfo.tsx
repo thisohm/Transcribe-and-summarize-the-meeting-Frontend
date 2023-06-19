@@ -15,6 +15,7 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
 
   const [finish,setFinish] = useState(false)
   const [fileUpload,setFileUpload] = useState<UploadFile[]>([])
+  const [loadings, setLoadings] = useState<boolean[]>([]);
   
   //Post data to api
   const onSubmit = async() => {
@@ -74,6 +75,22 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
     }
   }
 
+  const enterLoading = (index: number) => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+
+    setTimeout(() => {
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[index] = false;
+        return newLoadings;
+      });
+    }, 6000);
+  };
+
   return (
     <Form onFinish={onSubmit}>
       <div style={{padding:"50px",margin:"auto",width:"800px"}}>
@@ -119,6 +136,8 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
             <Button 
               type="primary"
               htmlType="submit"
+              loading={loadings[1]}
+              onClick={() => enterLoading(1)}
               >
               Submit
             </Button>

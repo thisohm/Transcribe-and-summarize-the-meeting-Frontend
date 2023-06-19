@@ -5,6 +5,8 @@ import axios from "axios"
 import {
   DeleteOutlined
 } from "@ant-design/icons"
+import dayjs from "dayjs"
+import { Link } from 'react-router-dom';
 
 const columns = [
   {
@@ -18,14 +20,9 @@ const columns = [
     key: 'meettype',
   },
   {
-    title: 'Date',
-    dataIndex: 'meetdate',
-    key: 'meetdate',
-  },
-  {
-    title: 'Time',
-    dataIndex: 'meettime',
-    key: 'meettime',
+    title: 'Created',
+    dataIndex: 'created_timestamp',
+    key: 'created_timestamp',
   },
   {
     title: 'Action',
@@ -39,16 +36,21 @@ const DataTable = () => {
   const [meetList,setMeetList] = useState([])
 
   useEffect(() => {
-    loadData()
+    loadDataMeeting()
   }, [])
 
-  const loadData = async () => {
+  const loadDataMeeting = async () => {
 
-    await axios.get('http://localhost:13001/api/meeting/list')
-    .then((response)=>{
-      setMeetList(response.data.result.map((item:any,index:any) => 
+    let endpoints = [
+      'http://localhost:13001/api/meeting/list',
+    ]
+
+    await axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
+    .then(axios.spread(({...meeting}) => {
+      setMeetList(meeting.data.result.map((item:any,index:any) => 
         ({
-          key:index,topic:item.topic,meettype:item.meettype,meetdate:item.meetdate,meettime:item.meettime,
+          key:index,topic:<Link to={`/meeting/${item.meeting_id}`}>{item.topic}</Link>,meettype:item.meettype,
+          created_timestamp:dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss a"),
           action:
           <Popconfirm
             title="Delete the meeting"
@@ -61,10 +63,11 @@ const DataTable = () => {
           </Popconfirm>
         })
       ))
-    })
-    .catch((error)=>{
+    }))
+    .catch((error) => {
       console.log(error)
     })
+
   }
 
   const handleDelete =  async (meeting_id:any) => {
@@ -73,7 +76,7 @@ const DataTable = () => {
       method: 'delete',
       maxBodyLength: Infinity,
       url: 'http://localhost:13001/api/meeting/delete',
-      data : {meeting_id:meeting_id}
+      data: {meeting_id:meeting_id}
     }
     
     await axios.request(config)

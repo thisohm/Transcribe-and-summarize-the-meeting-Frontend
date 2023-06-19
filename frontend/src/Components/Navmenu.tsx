@@ -12,6 +12,7 @@ import { Route,Routes,useNavigate, } from "react-router-dom";
 import Import from "../Pages/Import/Import";
 import Meeting from "../Pages/Meeting/Meeting";
 import Trash from "../Pages/Trash/Trash";
+import Content from "../Pages/Content/Content";
 
 const PageContent:FC = () =>{
   return(
@@ -20,6 +21,7 @@ const PageContent:FC = () =>{
       <Route path="/" Component={Meeting}></Route>
       <Route path="/import" Component={Import}></Route>
       <Route path="/trash" Component={Trash}></Route>
+      <Route path="/meeting/:meeting_id" Component={Content}></Route>
     </Routes>
   )
 }
