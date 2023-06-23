@@ -5,7 +5,7 @@ import FileInfo from './Components-Import/FileInfo';
 import AgendaInfo from './Components-Import/AgendaInfo';
 import ImportInfo from './Components-Import/ImportInfo';
 import ResultPage from './Components-Import/ResultPage';
-
+import dayjs from 'dayjs'
 
 export type fileinfoType = {
   meettype:string
@@ -30,7 +30,6 @@ const agenData = {
   agendetail:"",
   agentime: ""
 }
-
 const Import:FC = () => {
 
   //state for step
@@ -44,6 +43,17 @@ const Import:FC = () => {
 
   //state for fileinfo
   const [fileData,setFileData] = useState<fileinfoType>(fileDataDeclear)
+
+  const today = new Date();
+  const date = today.setDate(today.getDate()); 
+  const defaultDate = new Date(date).toISOString().split('T')[0]
+  const time = ("0" + today.getHours()).slice(-2)   + ":" + ("0" + today.getMinutes()).slice(-2) + ":" + ("0" + today.getSeconds()).slice(-2);
+  const defaultTime = time
+
+  const [dateInitial,setDateInitial] = useState(dayjs())
+  const [dateValue,setDateValue] = useState(defaultDate)
+  const [timeInitial,setTimeInitial] = useState(dayjs())
+  const [timeValue,setTimeValue] = useState(defaultTime)
 
   //state for agendainfo
   const [state,setState] = useState<any>([]) //initial fields
@@ -61,10 +71,13 @@ const Import:FC = () => {
   const backStep = () =>{
     setStep(step - 1)
   }
-
+  
   //component form
   const forms = [
-	<FileInfo nextStep={nextStep} setDisStep2={setDisStep2} fileData={fileData} setFileData={setFileData} />,
+	<FileInfo nextStep={nextStep} setDisStep2={setDisStep2} fileData={fileData} setFileData={setFileData} 
+    dateInitial={dateInitial} setDateInitial={setDateInitial} dateValue={dateValue} setDateValue={setDateValue}
+    timeInitial={timeInitial} setTimeInitial={setTimeInitial} timeValue={timeValue} setTimeValue={setTimeValue}
+  />,
 	
   <AgendaInfo nextStep={nextStep} backStep={backStep} setDisStep3={setDisStep3} agendaData={agendaData} 
   setAgendaData={setAgendaData} state={state} setState={setState}/>,
@@ -78,7 +91,7 @@ const Import:FC = () => {
 
   return (
 	<>
-    <p style={{padding:"15px"}}>Create Meetings</p>
+    <p style={{padding:"15px",fontSize:"16px"}}>Create Meetings</p>
       <Steps style={{padding:"50px",margin:"auto"}} onChange={setStep} current={step}
         items={[
           {

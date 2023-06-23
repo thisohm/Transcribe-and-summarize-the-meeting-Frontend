@@ -109,7 +109,7 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
 
         <Form.Item>
           <Upload.Dragger
-            accept=".mp4,.mp3.wav"
+            accept=".mp4,.mp3,.wav"
             name="file"
             maxCount={1}
             beforeUpload={(file)=>{

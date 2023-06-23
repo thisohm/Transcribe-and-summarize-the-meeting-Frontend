@@ -1,10 +1,13 @@
+import { useEffect, useState } from 'react';
 import './../../../index.css';
 import
   {
-    Button, Form, Input, Select
+    Button, DatePicker, Form, Input, Select, TimePicker
   } from 'antd';
-
-const FileInfo = ({ nextStep, setDisStep2, fileData, setFileData }:any) => {
+import dayjs from 'dayjs'
+import moment from 'moment'
+const FileInfo = ({ nextStep, setDisStep2, fileData, setFileData, dateInitial, setDateInitial,
+dateValue, setDateValue, timeInitial, setTimeInitial, timeValue, setTimeValue }:any) => {
 
   //set data FileInfo
   const handleInputData = (input:any) => (e:any) =>{
@@ -25,8 +28,37 @@ const FileInfo = ({ nextStep, setDisStep2, fileData, setFileData }:any) => {
 	  }))
   }
 
-  //set next step and disabled
+  //set date data for FileInfo
+  const dateGetValue = (date:any ,dateString:any) => {
+    setFileData((prevState:any) => ({
+      ...prevState,
+      meetdate: dateString
+    }))
+    setDateValue(dateString)
+    setDateInitial(dayjs(dateString))
+  }
+
+  //set time data for FileInfo
+  const timeGetValue = (time:any ,timeString:any) => {
+    setFileData((prevState:any) => ({
+      ...prevState,
+      meettime: timeString
+    }))
+    setTimeValue(timeString)
+    setTimeInitial(dayjs(timeString,"HH:mm:ss"))
+  }
+  
+  //set next step, disabled and default value
   const onFinish = () => {
+    setFileData((prevState:any) => ({
+      ...prevState,
+      meetdate: dateValue
+    }))
+
+    setFileData((prevState:any) => ({
+      ...prevState,
+      meettime: timeValue
+    }))
     nextStep()
     setDisStep2(false)
   }
@@ -105,28 +137,29 @@ const FileInfo = ({ nextStep, setDisStep2, fileData, setFileData }:any) => {
         >
           <Input onChange={handleInputData("topic")} placeholder="Enter a topic" />
         </Form.Item>
-              
+
         <Form.Item
           name="meetdate"
           label="Date"
-          initialValue={fileData.meetdate}
+          initialValue={dateInitial}
           rules={[{
             required:true, 
             message:"Date is required"
-          }]}>
-            <Input type="date" onChange={handleInputData("meetdate")}/>
+          }]}
+        >
+          <DatePicker onChange={dateGetValue}/>
         </Form.Item>
 
         <Form.Item
           name="meettime"
           label="Time"
-          initialValue={fileData.meettime}
+          initialValue={timeInitial}
           rules={[{
             required:true, 
             message:'Time is required'
           }]}
         >
-            <Input type="time" step="1" onChange={handleInputData("meettime")} />
+            <TimePicker onChange={timeGetValue}/>
         </Form.Item>
 
       </div>

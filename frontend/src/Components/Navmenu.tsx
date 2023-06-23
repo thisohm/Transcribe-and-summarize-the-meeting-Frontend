@@ -12,7 +12,7 @@ import { Route,Routes,useNavigate, } from "react-router-dom";
 import Import from "../Pages/Import/Import";
 import Meeting from "../Pages/Meeting/Meeting";
 import Trash from "../Pages/Trash/Trash";
-import Content from "../Pages/Content/Content";
+import Content from "../Pages/Content/ContentVideo";
 
 const PageContent:FC = () =>{
   return(

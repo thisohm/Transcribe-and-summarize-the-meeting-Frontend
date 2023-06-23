@@ -1,10 +1,30 @@
 import React,{FC} from 'react'
+import './../../index.css';
+import Table from './Components-Trash/Table'
+import { Layout, Row, Col, Button} from 'antd'
+import { Content } from 'antd/es/layout/layout';
+import {
+    PlusSquareOutlined
+} from "@ant-design/icons"
 
 const Trash:FC = () => {
   return (
-    <>
-      <p style={{padding:"15px"}}>Trash</p>
-    </>
+    <Layout>
+            <Content>
+                <Row justify={'space-between'}>
+                    <Col>
+                        <p style={{padding:"15px",fontSize:"16px"}}>Trash</p> 
+                    </Col>
+                    <Col style={{padding:"15px"}}>
+                        <Button type="primary" href="/import"><PlusSquareOutlined />Create Meetings</Button>
+                    </Col>
+                </Row>
+                <div style={{padding:"25px",margin:"auto",width:"auto"}}>
+                <Table/>
+                </div>
+                
+            </Content>
+        </Layout>
   )
 }
 
