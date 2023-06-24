@@ -9,7 +9,7 @@ const { Content } = Layout;
 
 const Meeting: FC = () => {
     return(
-        <Layout>
+        <Layout style={{margin:"10px"}}>
             <Content>
                 <Row justify={'space-between'}>
                     <Col>
