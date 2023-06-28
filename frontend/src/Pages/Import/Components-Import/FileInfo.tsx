@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
 import './../../../index.css';
 import
   {
     Button, DatePicker, Form, Input, Select, TimePicker
   } from 'antd';
 import dayjs from 'dayjs'
-import moment from 'moment'
 const FileInfo = ({ nextStep, setDisStep2, fileData, setFileData, dateInitial, setDateInitial,
 dateValue, setDateValue, timeInitial, setTimeInitial, timeValue, setTimeValue }:any) => {
 

@@ -24,7 +24,14 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
     const file:any = fileUpload[0]
     formData.append("file",file)
     formData.append("title",title)
-
+    
+    if(fileData.meettype==="Meeting Online"){
+      fileData.location = ""
+    }
+    if(fileData.meettype==="Meeting Offline"){
+      fileData.meetapp = ""
+    }
+    
     let fileConfig = {
       method: 'post',
       maxBodyLength: Infinity,

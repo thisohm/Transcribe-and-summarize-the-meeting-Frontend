@@ -1,48 +1,73 @@
 import {useEffect,useState} from 'react';
-import '../../../index.css';
-import { Table,Popconfirm } from 'antd';
+import './index.css'
+import { Table,Popconfirm, Space } from 'antd';
 import axios from "axios"
 import {
   DeleteOutlined
 } from "@ant-design/icons"
 import dayjs from "dayjs"
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const columns = [
-  {
-    title: 'Topic',
-    dataIndex: 'topic',
-    key: 'topic',
-    width: 250
-  },
-  {
-    title: 'Type of Meeting',
-    dataIndex: 'meettype',
-    key: 'meettype',
-    width: 250
-  },
-  {
-    title: 'Created',
-    dataIndex: 'created_timestamp',
-    key: 'created_timestamp',
-    width: 250
-  },
-  {
-    title: 'Action',
-    dataIndex: 'action',
-    key: 'action',
-    width: 250
-  }
-]
+
 
 const DataTable = () => {
 
   const [meetList,setMeetList] = useState([])
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadDataMeeting()
   }, [])
 
+  const columns = [
+  
+    {
+      title: 'Topic',
+      dataIndex: 'topic',
+      key: 'topic',
+      width: 250,
+      onCell:(record:any) => {
+        return {
+            onClick: () => {   
+              navigate(`/meeting/${record.meeting_id}`)
+            }
+        }
+      }
+    },
+    {
+      title: 'Type of Meeting',
+      dataIndex: 'meettype',
+      key: 'meettype',
+      width: 250,
+      onCell:(record:any) => {
+        return {
+            onClick: () => {   
+              navigate(`/meeting/${record.meeting_id}`)
+            }
+        }
+      }
+    },
+    {
+      title: 'Created',
+      dataIndex: 'created_timestamp',
+      key: 'created_timestamp',
+      width: 250,
+      onCell:(record:any) => {
+        return {
+            onClick: () => {   
+              navigate(`/meeting/${record.meeting_id}`)
+            }
+        }
+      }
+    },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      width: 250
+    }
+  ]
+  
   const loadDataMeeting = async () => {
 
     let endpoints = [
@@ -53,18 +78,21 @@ const DataTable = () => {
     .then(axios.spread(({...meeting}) => {
       setMeetList(meeting.data.result.map((item:any,index:any) => 
         ({
-          key:index,topic:<Link to={`/meeting/${item.meeting_id}`}>{item.topic}</Link>,meettype:item.meettype,
+          key:index,meeting_id:item.meeting_id,topic:item.topic,meettype:item.meettype,
           created_timestamp:dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A"),
           action:
-          <Popconfirm
-            title="Move the meeting to trash"
-            description="Are you sure to move this meeting  to trash?"
-            okText="Yes"
-            cancelText="No"
-            onConfirm={()=>moveToTrash(item.meeting_id)}
-          >
-            <DeleteOutlined style={{color:"red"}} />
-          </Popconfirm>
+          <Space size={'middle'}>
+            <br></br>
+            <Popconfirm
+              title="Move the meeting to trash"
+              description="Are you sure to move this meeting  to trash?"
+              okText="Yes"
+              cancelText="No"
+              onConfirm={()=>moveToTrash(item.meeting_id)}
+            >
+              <DeleteOutlined style={{color:"red"}} />
+            </Popconfirm>
+          </Space>
         })
       ))
     }))
@@ -96,7 +124,11 @@ const DataTable = () => {
 
   return(
     <>
-      <Table style={{padding:"10px",margin:"auto"}}  columns={columns} dataSource={meetList} />
+      <Table
+        rowClassName='row'
+        style={{padding:"10px",margin:"auto"}}  
+        columns={columns}
+        dataSource={meetList} />
     </>
   )
 }

@@ -28,7 +28,7 @@ const fileDataDeclear : fileinfoType = {
 const agenData = {
   agentopic:"",
   agendetail:"",
-  agentime: ""
+  agentime: "",
 }
 const Import:FC = () => {
 

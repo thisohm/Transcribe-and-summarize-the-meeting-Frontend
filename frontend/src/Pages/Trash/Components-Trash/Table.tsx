@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-import '../../../index.css';
+import './index.css';
 import { Table,Popconfirm,Space } from 'antd';
 import axios from "axios"
 import {
@@ -7,34 +7,6 @@ import {
   UndoOutlined
 } from "@ant-design/icons"
 import dayjs from "dayjs"
-import { Link } from 'react-router-dom';
-
-const columns = [
-    {
-      title: 'Topic',
-      dataIndex: 'topic',
-      key: 'topic',
-      width: 250
-    },
-    {
-      title: 'Type of Meeting',
-      dataIndex: 'meettype',
-      key: 'meettype',
-      width: 250
-    },
-    {
-      title: 'Created',
-      dataIndex: 'created_timestamp',
-      key: 'created_timestamp',
-      width: 250
-    },
-    {
-      title: 'Action',
-      dataIndex: 'action',
-      key: 'action',
-      width: 250
-    }
-]
 
 const TrashTable = () => {
 
@@ -43,6 +15,33 @@ const TrashTable = () => {
     useEffect(() => {
       loadDataTrash()
     }, [])
+
+    const columns = [
+      {
+        title: 'Topic',
+        dataIndex: 'topic',
+        key: 'topic',
+        width: 250
+      },
+      {
+        title: 'Type of Meeting',
+        dataIndex: 'meettype',
+        key: 'meettype',
+        width: 250
+      },
+      {
+        title: 'Created',
+        dataIndex: 'created_timestamp',
+        key: 'created_timestamp',
+        width: 250
+      },
+      {
+        title: 'Action',
+        dataIndex: 'action',
+        key: 'action',
+        width: 250
+      }
+  ]
   
     const loadDataTrash = async () => {
   
@@ -54,7 +53,7 @@ const TrashTable = () => {
       .then(axios.spread(({...meeting}) => {
         setTrashList(meeting.data.result.map((item:any,index:any) => 
           ({
-            key:index,topic:<Link to={`/meeting/${item.meeting_id}`}>{item.topic}</Link>,meettype:item.meettype,
+            key:index,meeting_id:item.meeting_id,topic:item.topic,meettype:item.meettype,
             created_timestamp:dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A"),
             action:
             <Space size={'middle'}>
@@ -129,7 +128,11 @@ const TrashTable = () => {
 
   return (
     <>
-      <Table style={{padding:"10px",margin:"auto"}}  columns={columns} dataSource={trashList} />
+      <Table 
+        rowClassName='row'
+        style={{padding:"10px",margin:"auto"}}  
+        columns={columns} 
+        dataSource={trashList} />
     </>
   )
 }

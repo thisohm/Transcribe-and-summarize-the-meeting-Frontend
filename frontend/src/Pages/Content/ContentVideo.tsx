@@ -4,12 +4,12 @@ import axios from 'axios'
 import {Row, Col, Layout, Space, Button, Input, Modal} from 'antd'
 import { 
   ExportOutlined,
-  SearchOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
   LeftOutlined
 } from '@ant-design/icons'
-import Cards from "./Components-Content/Cards"
+import CardsVideo from "./Components-Content/CardsVideo"
+import CardsAudio from './Components-Content/CardsAudio'
 import dayjs from "dayjs"
 import { Link } from 'react-router-dom';
 import { Footer } from 'antd/es/layout/layout'
@@ -121,13 +121,16 @@ const ContentVideo:FC = () => {
         console.log(error)
       })
     }
-  
+    const onSearch = (value:String) =>{
+      console.log(value)
+    }
   return (
     <>
     {
       dataVideo.map((item:any,index:any)=>{
         const file_extention = ((item.video_path).substring((item.video_path).lastIndexOf(".") + 1))
-        if(file_extention == "mp4"){ //vidoe file
+        
+        if(file_extention === "mp4"){ //vidoe file
           return (
             <Layout key={index} style={{margin:"25px"}}>
               <Row style={{justifyContent:"space-between"}}>
@@ -166,14 +169,14 @@ const ContentVideo:FC = () => {
                   <Space>
                     <Search 
                       placeholder="input search text" 
-                      //onSearch={onSearch} 
+                      onSearch={onSearch} 
                       enterButton 
                     />
                     <Button type="primary" onClick={showModal}>
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <Modal title="Export file" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                       <p>Some contents...</p>
                       <p>Some contents...</p>
                       <p>Some contents...</p>
@@ -204,8 +207,7 @@ const ContentVideo:FC = () => {
                     </video>
                   </Col>
                   <Col span={12}>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Transcript</p>
-                    <Cards/>
+                    <CardsVideo/>
                   </Col>
                 </Row>
                 <Row>
@@ -232,7 +234,7 @@ const ContentVideo:FC = () => {
             </Layout> 
           )
         }
-        if(file_extention == "mp3"){ //audio file
+        if(file_extention === "mp3"){ //audio file
           return (
             <Layout key={index} style={{margin:"25px"}}>
               <Row style={{justifyContent:"space-between"}}>
@@ -271,7 +273,7 @@ const ContentVideo:FC = () => {
                   <Space>
                     <Search 
                       placeholder="input search text" 
-                      //onSearch={onSearch} 
+                      onSearch={onSearch} 
                       enterButton 
                     />
                     <Button type="primary" onClick={showModal}>
@@ -309,8 +311,7 @@ const ContentVideo:FC = () => {
                     </div>
                   </Col>
                   <Col span={12}>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Transcript</p>
-                    <Cards/>
+                    <CardsAudio/>
                   </Col>
                 </Row>
               </Content>
