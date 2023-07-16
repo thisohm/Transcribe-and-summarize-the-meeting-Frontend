@@ -69,7 +69,7 @@ const DataTable = () => {
   ]
   
   const loadDataMeeting = async () => {
-
+    
     let endpoints = [
       'http://localhost:13001/api/meeting/list',
     ]
