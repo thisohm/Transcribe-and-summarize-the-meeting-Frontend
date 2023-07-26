@@ -1,7 +1,7 @@
 import {FC,useEffect,useState} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import {Row, Col, Layout, Space, Button, Input, Modal,Select} from 'antd'
+import {Row, Col, Layout, Space, Button, Input} from 'antd'
 import { 
   ExportOutlined,
   CalendarOutlined,
@@ -12,6 +12,7 @@ import CardsVideo from "./Components-Content/CardsVideo"
 import CardsAudio from './Components-Content/CardsAudio'
 import CardsAudioNoneTopic from './Components-Content/CardsAudioNoneTopic'
 import CardsVideoNoneTopic from './Components-Content/CardsVideoNoneTopic'
+import Export from './Components-Content/Export'
 import dayjs from "dayjs"
 import { Link } from 'react-router-dom';
 import { Footer } from 'antd/es/layout/layout'
@@ -20,13 +21,13 @@ const { TextArea,Search } = Input;
 
 const ContentVideo:FC = () => {
     const { meeting_id } = useParams()
-    const [dataMeeting,setDataMeeting] = useState([])
+    const [dataMeeting,setDataMeeting]:any[] = useState([])
     const [dataAgenda,setDataAgenda] = useState(false)
     const [dataAgen,setDataAgen] = useState([])
     const [dataVideo,setDataVideo]:any[] = useState([])
     const [demo_url,setURL] = useState('')
-    const [follow,setFollow] = useState([])
-    const [content,setContent] = useState([])
+    const [follow,setFollow] = useState("")
+    const [content,setContent] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [keyword,setKeyword] = useState<String>("")
 
@@ -58,19 +59,6 @@ const ContentVideo:FC = () => {
     useEffect(() => {
       localStorage.setItem(String(meeting_id+'content'),JSON.stringify(content))
     })
-
-    //modal export
-    const showModal = () => {
-      setIsModalOpen(true);
-    }
-  
-    const handleOk = () => {
-      setIsModalOpen(false);
-    }
-  
-    const handleCancel = () => {
-      setIsModalOpen(false);
-    }
 
     const loadDataMeeting = async (meeting_id:any) => {
 
@@ -200,27 +188,28 @@ const ContentVideo:FC = () => {
                 <Col>
                   <Space>
                     <Search 
-                      placeholder="input search text" 
+                      placeholder="Search text" 
                       onSearch={onSearch} 
                       enterButton
                       onChange={(e)=>{setKeyword(e.target.value)}} 
                     />
-                    <Button type="primary" onClick={showModal}>
+                    <Button type="primary" onClick={()=>setIsModalOpen(true)}>
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Modal bodyStyle={{height:"80px"}} title="Export file" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                      <Select
-                        placeholder="Select file type"
-                        style={{ width:"100%",alignItems:"center",padding:"10px 0 10px 0"}}
-                        //onChange={handleChange}
-                        options={[
-                           { value: 'docx', label: '.docx' },
-                           { value: 'pdf', label: '.pdf' },
-                         ]}
-                      >
-                      </Select>
-                    </Modal>
+                    <Export 
+                      ModalOpen={isModalOpen} 
+                      setModalOpen={setIsModalOpen} 
+                      topic={dataMeeting[0].topic}
+                      datetime={dayjs(dataMeeting[0].created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}
+                      duration={SecToTimeHMS(dataVideo[0].duration)}
+                      meettime={dataMeeting[0].meettime}
+                      typeOfMeet={dataMeeting[0].meettype}
+                      location={dataMeeting[0].location}
+                      meetapp={dataMeeting[0].meetapp}
+                      video_id={dataVideo[0].video_id}
+                      dataAgenda={dataAgenda}
+                    />
                   </Space>
                 </Col>
               </Row>
@@ -312,27 +301,27 @@ const ContentVideo:FC = () => {
                 <Col>
                   <Space>
                     <Search 
-                      placeholder="input search text" 
+                      placeholder="Search text" 
                       onSearch={onSearch} 
                       enterButton
                       onChange={(e)=>{setKeyword(e.target.value)}} 
                     />
-                    <Button type="primary" onClick={showModal}>
+                    <Button type="primary" onClick={()=>setIsModalOpen(true)}>
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Modal bodyStyle={{height:"80px"}} title="Export file" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                      <Select
-                        placeholder="Select file type"
-                        style={{ width:"100%",alignItems:"center",padding:"10px 0 10px 0"}}
-                        //onChange={handleChange}
-                        options={[
-                           { value: 'docx', label: '.docx' },
-                           { value: 'pdf', label: '.pdf' },
-                         ]}
-                      >
-                      </Select>
-                    </Modal>
+                    <Export 
+                      ModalOpen={isModalOpen} 
+                      setModalOpen={setIsModalOpen} 
+                      topic={dataMeeting[0].topic}
+                      datetime={dayjs(dataMeeting[0].created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}
+                      duration={SecToTimeHMS(dataVideo[0].duration)}
+                      typeOfMeet={dataMeeting[0].meettype}
+                      location={dataMeeting[0].location}
+                      meetapp={dataMeeting[0].meetapp}
+                      video_id={dataVideo[0].video_id}
+                      dataAgenda={dataAgenda}
+                    />
                   </Space>
                 </Col>
               </Row>
@@ -422,21 +411,30 @@ const ContentVideo:FC = () => {
                   }
                 </Col>
                 <Col>
-                  <Space>
+                <Space>
                     <Search 
-                      placeholder="input search text" 
+                      placeholder="Search text" 
                       onSearch={onSearch} 
-                      enterButton 
+                      enterButton
+                      onChange={(e)=>{setKeyword(e.target.value)}} 
                     />
-                    <Button type="primary" onClick={showModal}>
+                    <Button type="primary" onClick={()=>setIsModalOpen(true)}>
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                      <p>Some contents...</p>
-                      <p>Some contents...</p>
-                      <p>Some contents...</p>
-                    </Modal>
+                    <Export 
+                      ModalOpen={isModalOpen} 
+                      setModalOpen={setIsModalOpen} 
+                      topic={dataMeeting[0].topic}
+                      datetime={dayjs(dataMeeting[0].created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}
+                      duration={SecToTimeHMS(dataVideo[0].duration)}
+                      meettime={dataMeeting[0].meettime}
+                      typeOfMeet={dataMeeting[0].meettype}
+                      location={dataMeeting[0].location}
+                      meetapp={dataMeeting[0].meetapp}
+                      video_id={dataVideo[0].video_id}
+                      dataAgenda={dataAgenda}
+                    />
                   </Space>
                 </Col>
               </Row>
@@ -444,7 +442,7 @@ const ContentVideo:FC = () => {
                 <Row>
                   <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
                     <div style={{paddingBottom:"10px"}}>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Follow</p>
+                    <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
                       <TextArea
                         value={follow}
                         style={{padding:"auto"}}
@@ -463,7 +461,7 @@ const ContentVideo:FC = () => {
                     </div>
                   </Col>
                   <Col span={12}>
-                    <CardsAudio dataMeeting={dataMeeting} dataAgen={dataAgen}/>
+                    <CardsAudio dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword}/>
                   </Col>
                 </Row>
               </Content>
@@ -521,21 +519,29 @@ const ContentVideo:FC = () => {
                   }
                 </Col>
                 <Col>
-                  <Space>
+                <Space>
                     <Search 
-                      placeholder="input search text" 
+                      placeholder="Search text" 
                       onSearch={onSearch} 
-                      enterButton 
+                      enterButton
+                      onChange={(e)=>{setKeyword(e.target.value)}} 
                     />
-                    <Button type="primary" onClick={showModal}>
+                    <Button type="primary" onClick={()=>setIsModalOpen(true)}>
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                      <p>Some contents...</p>
-                      <p>Some contents...</p>
-                      <p>Some contents...</p>
-                    </Modal>
+                    <Export 
+                      ModalOpen={isModalOpen} 
+                      setModalOpen={setIsModalOpen} 
+                      topic={dataMeeting[0].topic}
+                      datetime={dayjs(dataMeeting[0].created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}
+                      duration={SecToTimeHMS(dataVideo[0].duration)}
+                      typeOfMeet={dataMeeting[0].meettype}
+                      location={dataMeeting[0].location}
+                      meetapp={dataMeeting[0].meetapp}
+                      video_id={dataVideo[0].video_id}
+                      dataAgenda={dataAgenda}
+                    />
                   </Space>
                 </Col>
               </Row>
@@ -543,7 +549,7 @@ const ContentVideo:FC = () => {
                 <Row>
                   <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
                     <div style={{paddingBottom:"10px"}}>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Follow</p>
+                    <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
                       <TextArea
                         value={follow}
                         style={{padding:"auto"}}
@@ -562,7 +568,7 @@ const ContentVideo:FC = () => {
                     </div>
                   </Col>
                   <Col span={12}>
-                    <CardsAudioNoneTopic/>
+                    <CardsAudioNoneTopic dataVideo={dataVideo} keyword={keyword}/>
                   </Col>
                 </Row>
               </Content>

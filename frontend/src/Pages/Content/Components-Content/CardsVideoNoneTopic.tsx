@@ -5,7 +5,8 @@ import {
   CheckOutlined,
   CloseCircleOutlined,
   PlusCircleOutlined,
-  EditOutlined
+  EditOutlined,
+  SaveOutlined
 } from '@ant-design/icons';
 import { useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid';
@@ -406,6 +407,9 @@ const CardsVideoNoneTopic = ({dataVideo,keyword}:any) => {
         const deletesub = await editContent(video_id,deleteSub)
       } 
       message.success("Save success")
+      setTimeout(function(){
+        window.location.reload();
+     }, 1500);
     }
 
     const filterBySearch = (keyword:any) => {
@@ -532,7 +536,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword}:any) => {
               handleSave("",dataVideo[0].video_id)
             }}
           >
-            Save
+            <SaveOutlined />Save
           </Button>
         </Col>
       </Row>
