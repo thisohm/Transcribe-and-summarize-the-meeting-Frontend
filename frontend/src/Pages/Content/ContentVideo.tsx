@@ -6,7 +6,7 @@ import {
   ExportOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
-  LeftOutlined
+  LeftCircleOutlined
 } from '@ant-design/icons'
 import CardsVideo from "./Components-Content/CardsVideo"
 import CardsAudio from './Components-Content/CardsAudio'
@@ -16,16 +16,19 @@ import Export from './Components-Content/Export'
 import dayjs from "dayjs"
 import { Link } from 'react-router-dom';
 import { Footer } from 'antd/es/layout/layout'
+import { RotatingLines } from  'react-loader-spinner'
 const { Content } = Layout;
 const { TextArea,Search } = Input;
 
 const ContentVideo:FC = () => {
     const { meeting_id } = useParams()
     const [dataMeeting,setDataMeeting]:any[] = useState([])
+    const [dataMeetingEx,setDataMeetingEx]:any[] = useState([])
     const [dataAgenda,setDataAgenda] = useState(false)
-    const [dataAgen,setDataAgen] = useState([])
+    const [dataAgen,setDataAgen]:any[] = useState([])
     const [dataVideo,setDataVideo]:any[] = useState([])
-    const [demo_url,setURL] = useState('')
+    const [demo_url,setURL] = useState("")
+    const [loading,setLoading] = useState(false)
     const [follow,setFollow] = useState("")
     const [content,setContent] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -59,19 +62,22 @@ const ContentVideo:FC = () => {
     useEffect(() => {
       localStorage.setItem(String(meeting_id+'content'),JSON.stringify(content))
     })
+    
 
     const loadDataMeeting = async (meeting_id:any) => {
 
-      let config = {
+          let config = {
           method: 'post',
           maxBodyLength: Infinity,
           url: 'http://localhost:13001/api/meeting/meet-id-list',
-          data: {meeting_id:meeting_id}
+          data: {meeting_id:meeting_id},
       }
 
       await axios.request(config)
       .then((response) => {
         setDataMeeting(response.data.meeting)
+        setDataMeetingEx(response.data.meeting[0])
+        setLoading(true)
       })
       .catch((error) => {
         console.log(error)
@@ -126,7 +132,7 @@ const ContentVideo:FC = () => {
       let config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: 'http://localhost:13001/api/subtitle/download?video_id='+video_id+'&extension=vtt',
+        url: 'http://localhost:13001/api/subtitle/download?video_id='+video_id+'&extension=vtt',        
     }
     
     await axios.request(config)
@@ -134,19 +140,28 @@ const ContentVideo:FC = () => {
       const blob = new Blob([response.data]);      
       const sub_path = (window.URL || window.webkitURL).createObjectURL(blob);
       setURL(sub_path);
+      setLoading(false)
     })
     .catch((error) => {
       console.log(error)
     })
     }
-
+    
     const onSearch = (value:String) =>{
       setKeyword(value)
     }
 
   return (
     <>
-    {
+    { loading ?
+      <RotatingLines
+      strokeColor="grey"
+      strokeWidth="5"
+      animationDuration="0.75"
+      width="30"
+      visible={true}
+      />
+    :
       dataVideo.map((item:any,index:any)=>{
         const file_extention = ((item.video_path).substring((item.video_path).lastIndexOf(".") + 1))
         
@@ -159,9 +174,9 @@ const ContentVideo:FC = () => {
                     dataMeeting.map((item:any,index:any) => {
                       return(
                       <div key={index}>
-                        <p style={{paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"black"}}>
-                        <LeftOutlined/>
+                        <p style={{fontSize:"20px",paddingBottom:"10px"}}>
+                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <LeftCircleOutlined/>
                         </Link>
                         </p>
                         <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
@@ -197,19 +212,15 @@ const ContentVideo:FC = () => {
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Export 
-                      ModalOpen={isModalOpen} 
-                      setModalOpen={setIsModalOpen} 
-                      topic={dataMeeting[0].topic}
-                      datetime={dayjs(dataMeeting[0].created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}
-                      duration={SecToTimeHMS(dataVideo[0].duration)}
-                      meettime={dataMeeting[0].meettime}
-                      typeOfMeet={dataMeeting[0].meettype}
-                      location={dataMeeting[0].location}
-                      meetapp={dataMeeting[0].meetapp}
-                      video_id={dataVideo[0].video_id}
-                      dataAgenda={dataAgenda}
-                    />
+                      <Export 
+                        ModalOpen={isModalOpen} 
+                        setModalOpen={setIsModalOpen} 
+                        video_id={dataVideo[0].video_id}
+                        dataMeeting={dataMeetingEx}
+                        dataAgenda={dataAgenda}
+                        dataAgen={dataAgen}
+                        dataVideo={dataVideo}
+                      />
                   </Space>
                 </Col>
               </Row>
@@ -272,9 +283,9 @@ const ContentVideo:FC = () => {
                     dataMeeting.map((item:any,index:any) => {
                       return(
                       <div key={index}>
-                        <p style={{paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"black"}}>
-                        <LeftOutlined/>
+                        <p style={{fontSize:"20px",paddingBottom:"10px"}}>
+                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <LeftCircleOutlined/>
                         </Link>
                         </p>
                         <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
@@ -310,18 +321,15 @@ const ContentVideo:FC = () => {
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Export 
-                      ModalOpen={isModalOpen} 
-                      setModalOpen={setIsModalOpen} 
-                      topic={dataMeeting[0].topic}
-                      datetime={dayjs(dataMeeting[0].created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}
-                      duration={SecToTimeHMS(dataVideo[0].duration)}
-                      typeOfMeet={dataMeeting[0].meettype}
-                      location={dataMeeting[0].location}
-                      meetapp={dataMeeting[0].meetapp}
-                      video_id={dataVideo[0].video_id}
-                      dataAgenda={dataAgenda}
-                    />
+                      <Export 
+                        ModalOpen={isModalOpen} 
+                        setModalOpen={setIsModalOpen} 
+                        video_id={dataVideo[0].video_id}
+                        dataMeeting={dataMeetingEx}
+                        dataAgenda={dataAgenda}
+                        dataAgen={dataAgen}
+                        dataVideo={dataVideo}
+                      />
                   </Space>
                 </Col>
               </Row>
@@ -384,9 +392,9 @@ const ContentVideo:FC = () => {
                     dataMeeting.map((item:any,index:any) => {
                       return(
                       <div key={index}>
-                        <p style={{paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"black"}}>
-                        <LeftOutlined/>
+                        <p style={{fontSize:"20px",paddingBottom:"10px"}}>
+                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <LeftCircleOutlined/>
                         </Link>
                         </p>
                         <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
@@ -422,19 +430,15 @@ const ContentVideo:FC = () => {
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Export 
-                      ModalOpen={isModalOpen} 
-                      setModalOpen={setIsModalOpen} 
-                      topic={dataMeeting[0].topic}
-                      datetime={dayjs(dataMeeting[0].created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}
-                      duration={SecToTimeHMS(dataVideo[0].duration)}
-                      meettime={dataMeeting[0].meettime}
-                      typeOfMeet={dataMeeting[0].meettype}
-                      location={dataMeeting[0].location}
-                      meetapp={dataMeeting[0].meetapp}
-                      video_id={dataVideo[0].video_id}
-                      dataAgenda={dataAgenda}
-                    />
+                      <Export 
+                        ModalOpen={isModalOpen} 
+                        setModalOpen={setIsModalOpen} 
+                        video_id={dataVideo[0].video_id}
+                        dataMeeting={dataMeetingEx}
+                        dataAgenda={dataAgenda}
+                        dataAgen={dataAgen}
+                        dataVideo={dataVideo}
+                      />
                   </Space>
                 </Col>
               </Row>
@@ -492,9 +496,9 @@ const ContentVideo:FC = () => {
                     dataMeeting.map((item:any,index:any) => {
                       return(
                       <div key={index}>
-                        <p style={{paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"black"}}>
-                        <LeftOutlined/>
+                        <p style={{fontSize:"20px",paddingBottom:"10px"}}>
+                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <LeftCircleOutlined/>
                         </Link>
                         </p>
                         <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
@@ -530,18 +534,15 @@ const ContentVideo:FC = () => {
                       <ExportOutlined style={{fontSize:"16px"}}/>
                       Export
                     </Button>
-                    <Export 
-                      ModalOpen={isModalOpen} 
-                      setModalOpen={setIsModalOpen} 
-                      topic={dataMeeting[0].topic}
-                      datetime={dayjs(dataMeeting[0].created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}
-                      duration={SecToTimeHMS(dataVideo[0].duration)}
-                      typeOfMeet={dataMeeting[0].meettype}
-                      location={dataMeeting[0].location}
-                      meetapp={dataMeeting[0].meetapp}
-                      video_id={dataVideo[0].video_id}
-                      dataAgenda={dataAgenda}
-                    />
+                      <Export 
+                        ModalOpen={isModalOpen} 
+                        setModalOpen={setIsModalOpen} 
+                        video_id={dataVideo[0].video_id}
+                        dataMeeting={dataMeetingEx}
+                        dataAgenda={dataAgenda}
+                        dataAgen={dataAgen}
+                        dataVideo={dataVideo}
+                      />
                   </Space>
                 </Col>
               </Row>
@@ -582,6 +583,214 @@ const ContentVideo:FC = () => {
                     dataVideo.map((item:any,index:any) => {
                       return(                    
                         <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/mp3"/>     
+                      )
+                    })
+                  }
+                </audio>
+              </Footer>
+            </Layout> 
+          )   
+        }
+        if(file_extention === "wav" && dataAgenda === true){ //audio wav file have topic
+          return (
+            <Layout key={index} style={{margin:"25px"}}>
+              <Row style={{justifyContent:"space-between"}}>
+                <Col>
+                  {
+                    dataMeeting.map((item:any,index:any) => {
+                      return(
+                      <div key={index}>
+                        <p style={{fontSize:"20px",paddingBottom:"10px"}}>
+                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <LeftCircleOutlined/>
+                        </Link>
+                        </p>
+                        <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
+                          <Space>
+                            <p><CalendarOutlined /></p>
+                            <p style={{fontSize:"16px"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
+                            <br></br>
+                            <p><ClockCircleOutlined /></p>
+                            {
+                              dataVideo.map((item:any,index:any) => {
+                                return(
+                                  <div key={index}>                        
+                                    <p style={{fontSize:"16px"}}>{SecToTimeHMS(item.duration)}</p>
+                                  </div>
+                                )
+                                })
+                            }
+                          </Space>
+                        </div>
+                        )
+                    })
+                  }
+                </Col>
+                <Col>
+                <Space>
+                    <Search 
+                      placeholder="Search text" 
+                      onSearch={onSearch} 
+                      enterButton
+                      onChange={(e)=>{setKeyword(e.target.value)}} 
+                    />
+                    <Button type="primary" onClick={()=>setIsModalOpen(true)}>
+                      <ExportOutlined style={{fontSize:"16px"}}/>
+                      Export
+                    </Button>
+                      <Export 
+                        ModalOpen={isModalOpen} 
+                        setModalOpen={setIsModalOpen} 
+                        video_id={dataVideo[0].video_id}
+                        dataMeeting={dataMeetingEx}
+                        dataAgenda={dataAgenda}
+                        dataAgen={dataAgen}
+                        dataVideo={dataVideo}
+                      />
+                  </Space>
+                </Col>
+              </Row>
+              <Content style={{marginTop:"20px"}} >
+                <Row>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                    <div style={{paddingBottom:"10px"}}>
+                    <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
+                      <TextArea
+                        value={follow}
+                        style={{padding:"auto"}}
+                        autoSize={{ minRows: 15, maxRows: 15 }}
+                        onChange={(e:any) => setFollow(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Content</p>
+                      <TextArea
+                        value={content}
+                        style={{padding:"auto"}}
+                        autoSize={{ minRows: 15, maxRows: 15 }}
+                        onChange={(e:any) => setContent(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                  <Col span={12}>
+                    <CardsAudio dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword}/>
+                  </Col>
+                </Row>
+              </Content>
+              <Footer style={{padding:"0px"}}>
+                <audio
+                  id="audio" 
+                  style={{width:"100%"}}
+                  controls preload="metadata" 
+                > 
+                  {
+                    dataVideo.map((item:any,index:any) => {
+                      return(                    
+                        <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/wav"/>     
+                      )
+                    })
+                  }
+                </audio>
+              </Footer>
+            </Layout> 
+          )   
+        }
+        if(file_extention === "wav" && dataAgenda === false){ //audio wav file none topic
+          return (
+            <Layout key={index} style={{margin:"25px"}}>
+              <Row style={{justifyContent:"space-between"}}>
+                <Col>
+                  {
+                    dataMeeting.map((item:any,index:any) => {
+                      return(
+                      <div key={index}>
+                        <p style={{fontSize:"20px",paddingBottom:"10px"}}>
+                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <LeftCircleOutlined/>
+                        </Link>
+                        </p>
+                        <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
+                          <Space>
+                            <p><CalendarOutlined /></p>
+                            <p style={{fontSize:"16px"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
+                            <br></br>
+                            <p><ClockCircleOutlined /></p>
+                            {
+                              dataVideo.map((item:any,index:any) => {
+                                return(
+                                  <div key={index}>                        
+                                    <p style={{fontSize:"16px"}}>{SecToTimeHMS(item.duration)}</p>
+                                  </div>
+                                )
+                                })
+                            }
+                          </Space>
+                        </div>
+                        )
+                    })
+                  }
+                </Col>
+                <Col>
+                <Space>
+                    <Search 
+                      placeholder="Search text" 
+                      onSearch={onSearch} 
+                      enterButton
+                      onChange={(e)=>{setKeyword(e.target.value)}} 
+                    />
+                    <Button type="primary" onClick={()=>setIsModalOpen(true)}>
+                      <ExportOutlined style={{fontSize:"16px"}}/>
+                      Export
+                    </Button>
+                      <Export 
+                        ModalOpen={isModalOpen} 
+                        setModalOpen={setIsModalOpen} 
+                        video_id={dataVideo[0].video_id}
+                        dataMeeting={dataMeetingEx}
+                        dataAgenda={dataAgenda}
+                        dataAgen={dataAgen}
+                        dataVideo={dataVideo}
+                      />
+                  </Space>
+                </Col>
+              </Row>
+              <Content style={{marginTop:"20px"}} >
+                <Row>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                    <div style={{paddingBottom:"10px"}}>
+                    <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
+                      <TextArea
+                        value={follow}
+                        style={{padding:"auto"}}
+                        autoSize={{ minRows: 15, maxRows: 15 }}
+                        onChange={(e:any) => setFollow(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Content</p>
+                      <TextArea
+                        value={content}
+                        style={{padding:"auto"}}
+                        autoSize={{ minRows: 15, maxRows: 15 }}
+                        onChange={(e:any) => setContent(e.target.value)}
+                      />
+                    </div>
+                  </Col>
+                  <Col span={12}>
+                    <CardsAudioNoneTopic dataVideo={dataVideo} keyword={keyword}/>
+                  </Col>
+                </Row>
+              </Content>
+              <Footer style={{padding:"0px"}}>
+                <audio 
+                  id="audio"
+                  style={{width:"100%"}}
+                  controls preload="metadata" 
+                > 
+                  {
+                    dataVideo.map((item:any,index:any) => {
+                      return(                    
+                        <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/wav"/>     
                       )
                     })
                   }

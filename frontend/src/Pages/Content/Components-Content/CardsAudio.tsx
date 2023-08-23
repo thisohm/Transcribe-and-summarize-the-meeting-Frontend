@@ -38,6 +38,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
     const [indexUpdate, setIndexUpdate] = useState(0);
     const [dataEmpty, setDataEmpty] = useState(true);
     const [isId, setIsId] = useState('');
+    const [cardHighlight,setCardHighLight] = useState(false)
 
     const Highlight = require('react-highlighter');
   
@@ -408,7 +409,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
       message.success("Save success")
       setTimeout(function(){
         window.location.reload();
-     }, 1500);
+     }, 1000);
     }
 
     const filterBySearch = (keyword:any) => {
@@ -429,11 +430,13 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
           renderItem={(item:any, i) => (
             
          TimeCodeToSeconds(item.start_time) >= 0 && TimeCodeToSeconds(item.start_time) < Math.abs(TimeCodeToSeconds(dataAgen[0].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
-          <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
+          <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
             onClick={()=>{pauseVDO()}}
             onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
+            setIndexUpdate(i)
+            setCardHighLight(true)
+            setSubIdSelect(item.sub_id)
+          }}
           >
                   <List.Item>
                       <Row justify={'space-between'}>
@@ -494,7 +497,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                    <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -532,12 +542,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
           renderItem={(item:any, i) => (
             TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[0].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
           &&  TimeCodeToSeconds(item.start_time) < Math.abs(TimeCodeToSeconds(dataAgen[1].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime))? 
-          <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+              <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+                  onClick={()=>{pauseVDO()}}
+                  onFocus = {()=>{
+                    setIndexUpdate(i)
+                    setCardHighLight(true)
+                    setSubIdSelect(item.sub_id)
+                  }}
+              >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -597,7 +609,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                    <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -633,12 +652,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
           dataSource={dataSub}
           renderItem={(item:any, i) => (
             TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[0].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
-          <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+               <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+                onClick={()=>{pauseVDO()}}
+                onFocus = {()=>{
+                  setIndexUpdate(i)
+                  setCardHighLight(true)
+                  setSubIdSelect(item.sub_id)
+                }}
+              >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -698,7 +719,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                    <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -736,12 +764,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
           renderItem={(item:any, i) => (
             TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[1].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
           &&  TimeCodeToSeconds(item.start_time) < Math.abs(TimeCodeToSeconds(dataAgen[2].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime))? 
-          <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+              <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+                onClick={()=>{pauseVDO()}}
+                onFocus = {()=>{
+                  setIndexUpdate(i)
+                  setCardHighLight(true)
+                  setSubIdSelect(item.sub_id)
+                }}
+              >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -801,7 +831,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                    <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -837,12 +874,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
           dataSource={dataSub}
           renderItem={(item:any, i) => (
             TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[1].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
-          <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+              <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+                onClick={()=>{pauseVDO()}}
+                onFocus = {()=>{
+                  setIndexUpdate(i)
+                  setCardHighLight(true)
+                  setSubIdSelect(item.sub_id)
+                }}
+              >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -902,7 +941,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                    <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -940,12 +986,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
           renderItem={(item:any, i) => (
             TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[2].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
           &&  TimeCodeToSeconds(item.start_time) < Math.abs(TimeCodeToSeconds(dataAgen[3].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime))? 
-          <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+              <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+                onClick={()=>{pauseVDO()}}
+                onFocus = {()=>{
+                  setIndexUpdate(i)
+                  setCardHighLight(true)
+                  setSubIdSelect(item.sub_id)
+                }}
+              >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -1005,7 +1053,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                        <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -1041,12 +1096,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
         dataSource={dataSub}
         renderItem={(item:any, i) => (
           TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[2].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
-        <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+              <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+                onClick={()=>{pauseVDO()}}
+                onFocus = {()=>{
+                  setIndexUpdate(i)
+                  setCardHighLight(true)
+                  setSubIdSelect(item.sub_id)
+                }}
+              >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -1106,7 +1163,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                        <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -1144,12 +1208,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
           renderItem={(item:any, i) => (
             TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[3].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
           &&  TimeCodeToSeconds(item.start_time) < Math.abs(TimeCodeToSeconds(dataAgen[4].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime))? 
-          <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+              <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+                onClick={()=>{pauseVDO()}}
+                onFocus = {()=>{
+                  setIndexUpdate(i)
+                  setCardHighLight(true)
+                  setSubIdSelect(item.sub_id)
+                }}
+              >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -1209,7 +1275,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                        <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -1245,12 +1318,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
         dataSource={dataSub}
         renderItem={(item:any, i) => (
           TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[3].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
-        <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+              <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+                onClick={()=>{pauseVDO()}}
+                onFocus = {()=>{
+                  setIndexUpdate(i)
+                  setCardHighLight(true)
+                  setSubIdSelect(item.sub_id)
+                }}
+              >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -1310,7 +1385,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                        <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -1346,12 +1428,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
         dataSource={dataSub}
         renderItem={(item:any, i) => (
           TimeCodeToSeconds(item.start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[4].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
-        <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
-            onClick={()=>{pauseVDO()}}
-            onFocus = {()=>{
-              setIndexUpdate(i)
-            }}
-          >
+            <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+              onClick={()=>{pauseVDO()}}
+              onFocus = {()=>{
+                  setIndexUpdate(i)
+                  setCardHighLight(true)
+                  setSubIdSelect(item.sub_id)
+              }}
+            >
                   <List.Item>
                       <Row justify={'space-between'}>
                         <Col>
@@ -1411,7 +1495,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
                   <List.Item>
                   <div id="sub-text">
                     {isInputTag ? (
-                      <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                        <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                      ) : (
                       <Row justify={'space-between'}>
                         <Col>
@@ -1468,7 +1559,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword}:any) => {
           dataAgenda.map((item:any,index:any) => (            
             (index==0) ? {
               key:index,
-              tab:'Main'
+              tab: 'Main'
             }
             :
             {

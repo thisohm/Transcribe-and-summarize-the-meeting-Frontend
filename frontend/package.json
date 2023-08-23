@@ -17,6 +17,7 @@
     "react-dom": "^18.2.0",
     "react-highlighter": "^0.4.3",
     "react-hook-form": "^7.44.2",
+    "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "typescript": "^5.0.2",

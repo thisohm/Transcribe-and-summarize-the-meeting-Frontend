@@ -37,6 +37,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword}:any) => {
     const [indexUpdate, setIndexUpdate] = useState(0);
     const [dataEmpty, setDataEmpty] = useState(true);
     const [isId, setIsId] = useState('');
+    const [cardHighlight,setCardHighLight] = useState(false);
 
     const Highlight = require('react-highlighter');
   
@@ -409,7 +410,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword}:any) => {
       message.success("Save success")
       setTimeout(function(){
         window.location.reload();
-     }, 1500);
+     }, 1000);
     }
 
     const filterBySearch = (keyword:any) => {
@@ -427,10 +428,12 @@ const CardsVideoNoneTopic = ({dataVideo,keyword}:any) => {
             grid={{ gutter:16, column: 1}}
             dataSource={dataSub}
             renderItem={(item:any, i:any) => ( 
-            <List.Item style={{border:"1px solid lightgray",borderRadius:"10px"}}
+            <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
               onClick={()=>{pauseVDO()}}
               onFocus = {()=>{
                 setIndexUpdate(i)
+                setCardHighLight(true)
+                setSubIdSelect(item.sub_id)
               }}
             >
                 <List.Item>
@@ -492,7 +495,14 @@ const CardsVideoNoneTopic = ({dataVideo,keyword}:any) => {
                 <List.Item>
                 <div id="sub-text">
                   {isInputTag ? (
-                    <Highlight style={{fontSize:"14px"}} onClick={() => setInputTag(false)} search={keyword} tye="text">{item.text}</Highlight>
+                    <Highlight style={{fontSize:"14px"}} onClick={() => {
+                      setInputTag(false)
+                      setCardHighLight(true)
+                      setIndexUpdate(i)
+                      setSubIdSelect(item.sub_id)
+                    }} 
+                    search={keyword} tye="text">{item.text}
+                    </Highlight>
                    ) : (
                     <Row justify={'space-between'}>
                       <Col>
