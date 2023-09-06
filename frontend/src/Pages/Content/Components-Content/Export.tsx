@@ -131,7 +131,7 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                         text: "Application : " + dataMeeting?.meetapp,
                         heading: HeadingLevel.HEADING_1,
                     }
-                ),
+                ),/*
                 new Paragraph({
                     text: "Transcript",
                     heading: HeadingLevel.HEADING_2
@@ -146,7 +146,29 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                             )
                         })
                     ],
+                }),*/
+                new Paragraph({
+                    text: "Content",
+                    heading: HeadingLevel.HEADING_3
                 }),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content")))
+                        })
+                    ]
+                }),
+                new Paragraph({
+                    text: "Action",
+                    heading: HeadingLevel.HEADING_3
+                }),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
+                        })
+                    ]
+                })
             ]
             :
             [    
@@ -178,7 +200,7 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                         text: "Application : " + dataMeeting?.meetapp,
                         heading: HeadingLevel.HEADING_1,
                     }
-                ),
+                ),/*
                 new Paragraph({
                     text: "Transcript",
                     heading: HeadingLevel.HEADING_2
@@ -420,18 +442,7 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                         ],
                     }
                     :{}     
-                ),
-                new Paragraph({
-                    text: "Follow",
-                    heading: HeadingLevel.HEADING_3
-                }),
-                new Paragraph({
-                    children: [
-                        new TextRun({
-                            text: JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
-                        })
-                    ]
-                }),
+                ),*/
                 new Paragraph({
                     text: "Content",
                     heading: HeadingLevel.HEADING_3
@@ -442,7 +453,18 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                             text: JSON.parse(String(localStorage.getItem(meeting_id+"content")))
                         })
                     ]
-                })
+                }),
+                new Paragraph({
+                    text: "Action",
+                    heading: HeadingLevel.HEADING_3
+                }),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
+                        })
+                    ]
+                }),
             ],
         },
     ],
@@ -456,7 +478,7 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
             "Duration : " + SecToTimeHMS(dataVideo[0].duration) + "\n" +
             "Type of meeting : " + dataMeeting?.meettype + "\n" +
             (dataMeeting?.location != "" && dataMeeting?.meetapp=="" ? "Location : " + dataMeeting?.location : "Application : " + dataMeeting?.meetapp) + "\n" + "\n" +
-            "Transcript" + "\n" + "\n" +
+            /*"Transcript" + "\n" + "\n" +
             dataSub.map((item:any,i:any)=>{
                 if(i%10==0){
                     return(
@@ -468,18 +490,18 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                         item.text
                     )
                 }
-            }).join('') + "\n" + "\n" +
-            "Follow" + "\n" + 
-            JSON.parse(String(localStorage.getItem(meeting_id+"follow"))) + "\n" + "\n" +
+            }).join('') + "\n" + "\n" + */
             "Content" + "\n" + 
-            JSON.parse(String(localStorage.getItem(meeting_id+"content")))
+            JSON.parse(String(localStorage.getItem(meeting_id+"content"))) + "\n" + "\n" +
+            "Action" + "\n" + 
+            JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
         :
             "Topic : " + dataMeeting?.topic + "\n" +
             "Date&time : " + dayjs(dataMeeting?.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A") + "\n" +
             "Duration : " + SecToTimeHMS(dataVideo[0].duration) + "\n" +
             "Type of meeting : " + dataMeeting?.meettype + "\n" +
             (dataMeeting?.location != "" && dataMeeting?.meetapp=="" ? "Location : " + dataMeeting?.location : "Application : " + dataMeeting?.meetapp) + "\n" + "\n" +
-            "Transcript" + "\n" + "\n" +
+            /*"Transcript" + "\n" + "\n" +
             "Main" + "\n" +
             dataSub.map((item:any,i:any)=>{
                 if(TimeCodeToSeconds(item.start_time) >= 0 && 
@@ -671,11 +693,11 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                         }
                     }
                 }).join('')
-            :"") + "\n" + "\n" +
-            "Follow" + "\n" + 
-            JSON.parse(String(localStorage.getItem(meeting_id+"follow"))) + "\n" + "\n" +
+            :"") + "\n" + "\n" + */
             "Content" + "\n" + 
-            JSON.parse(String(localStorage.getItem(meeting_id+"content")))
+            JSON.parse(String(localStorage.getItem(meeting_id+"content"))) + "\n" + "\n" +
+            "Action" + "\n" + 
+            JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
         )         
         
     const exportFile = (fileType:String) => {

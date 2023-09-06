@@ -6,14 +6,15 @@ import {
   CloseCircleOutlined,
   PlusCircleOutlined,
   EditOutlined,
-  SaveOutlined
+  SaveOutlined,
+  CopyOutlined
 } from '@ant-design/icons';
 import { useParams } from 'react-router-dom'
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios'
 
-const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
-    const video = document.getElementById("video") as HTMLVideoElement | null;
+const CardsAudioNoneTopic = ({tab,dataVideo,keyword,setContent,content,setFollow,follow}:any) => {
+    const audio = document.getElementById("audio") as HTMLVideoElement | null;
     const { meeting_id } = useParams()
     const [activeTabKey1, setActiveTabKey1] = useState<string>('0');
     const [isInputTag, setInputTag] = useState(true);
@@ -34,10 +35,13 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
     const [stateDelete, setStateDelete] = useState('');
     const [stateUpdate, setStateUpdate] = useState('1');
     const [textUpdate, setTextUpdate] = useState(false)
+    const [indexI,setIndexI] = useState(0)
     const [indexUpdate, setIndexUpdate] = useState(0);
     const [dataEmpty, setDataEmpty] = useState(true);
     const [isId, setIsId] = useState('');
     const [cardHighlight,setCardHighLight] = useState(false)
+    const [pause, setPause] = useState(false)
+
   
     const Highlight = require('react-highlighter');
 
@@ -160,7 +164,7 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
       var addNewSubtitle
       
       if(dataEmpty == true){   
-        if(indexUpdate == dataSub.length-1){
+        if(indexI == dataSub.length-1){
           addNewSubtitle = {
             text: '',
             start_time: bendTime[dataSub.length-1],
@@ -189,7 +193,7 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
         setDataEmpty(false)
       }
     }
-    
+
     const  handleAddSub= async(index:any) => {
        addSub(index)
        setInputTag(false)
@@ -246,9 +250,80 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
     }
 
     const pauseVDO = () => {
-      if(video !== null) {
-        video.pause()
+      if(audio !== null) {
+        audio.pause()
       }
+    }
+    
+    const setCurtime = (time:any) => {
+      if(audio !== null) {
+        audio.currentTime = time
+      }
+    }
+
+    const handleWatchComplete = () => {
+      if(audio !== null) {
+        if(audio.paused){
+          setPause(true)
+        }
+        else{
+          setInputTag(true)
+          setPause(false)
+        }
+        const st = dataSub.map((item:any) => 
+          Number(parseInt(item.start_time.split(':')[0])*3600) + Number(parseInt(item.start_time.split(':')[1])*60) + Number(parseFloat(item.start_time.split(':')[2]).toFixed(3)) )
+  
+        const st2 = st.map((item:any) => item < 1.000 ? item = 0.000 : item = item)
+      
+        const et = dataSub.map((item:any) => 
+          Number(parseInt(item.end_time.split(':')[0])*3600) + Number(parseInt(item.end_time.split(':')[1])*60) + Number(parseFloat(item.end_time.split(':')[2]).toFixed(3)) )
+        
+        if(pause === false){
+          for(let i = 0; i < st2.length;i++){
+            if(audio.currentTime >= st2[i] && audio.currentTime < et[i]){
+              setIndexI(i)
+              break;
+            }
+          }
+          for(let i = indexI; i < st2.length; i++){
+            if(audio.currentTime >= st2[i] && audio.currentTime < et[i]){
+              if(st2[i] == st2[i+1] || st2[i] == st2[i-1]){
+                getAbsoluteOffsetFromBody(document.getElementById("sTime"+dataSub[indexI].sub_id));
+                setIndexUpdate(indexI);
+              }else{
+                getAbsoluteOffsetFromBody(document.getElementById("sTime"+dataSub[i].sub_id));
+                setIndexUpdate(i)
+              }    
+            }  
+          }
+        }
+      }
+    }
+  
+    const getAbsoluteOffsetFromBody = (el:any) =>
+    {   
+        var _x = 0;
+        var _y = 0;
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) )
+        {
+            _y += el.offsetTop - el.scrollTop + el.clientTop;
+            el = el.offsetParent;
+  
+        }
+        if(window.innerWidth > 992){
+          document.getElementById("scrollableDiv")?.scrollTo(_x ,_y -280);
+        }
+        if(window.innerWidth >= 640 && window.innerWidth <= 992 ){
+          document.getElementById("scrollableDiv")?.scrollTo(_x ,_y -640);
+        }      
+        if(window.innerWidth < 640){
+          document.getElementById("scrollableDiv")?.scrollTo(_x ,_y -580);
+        }
+  
+    }
+
+    if(audio !== null) {
+      audio.ontimeupdate = function(){handleWatchComplete()}
     }
 
     const getTime = (startTime: any, endTime: any) => {
@@ -382,10 +457,12 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
         break;
         case 'insert' :  {
           handleAddSub(indexUpdate)
-          var textNew = document.getElementById("sub"+(+indexUpdate+1));
+          /*
+          var textNew = document.getElementById("sub"+indexUpdate+1);
           if(textNew != null){
             textNew.focus();
           }
+          */
         } 
         break;
         case 'delete' : handleDeleteSub(dataSub[+indexUpdate].sub_id,dataSub[+indexUpdate].text,dataSub[+indexUpdate].start_time,dataSub[+indexUpdate].end_time,indexUpdate);
@@ -412,7 +489,7 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
         window.location.reload();
      }, 1000);
     }
-
+    
     const filterBySearch = (keyword:any) => {
       const query = keyword;
       var updatedList = [...updateDataSub];
@@ -428,10 +505,14 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
             grid={{ gutter:16, column: 1}}
             dataSource={dataSub}
             renderItem={(item:any, i) => ( 
-            <List.Item style={{border:(cardHighlight===true && indexUpdate === i && subIdSelect === item.sub_id) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
-              onClick={()=>{pauseVDO()}}
+            <List.Item id = {"sTime"+item.sub_id}  style={{border:(i === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px"}}
+              onClick={()=>{
+                pauseVDO()
+                setIndexI(i)
+                setIndexUpdate(i)
+                setCurtime(Number(parseInt(item.start_time.split(':')[0])*3600) + Number(parseInt(item.start_time.split(':')[1])*60) + Number(parseFloat(item.start_time.split(':')[2]).toFixed(3)))
+              }}
                 onFocus = {()=>{
-                  setIndexUpdate(i)
                   setCardHighLight(true)
                   setSubIdSelect(item.sub_id)
                 }}
@@ -486,21 +567,37 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
                         </Space>
                       </Col>
                       <Col>
-                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
-                            <EllipsisOutlined />
-                        </Dropdown>
+                          <Space>
+                            <CopyOutlined style={{fontSize:"12px",color:"gray"}} 
+                               onClick={
+                               tab === "content" ? 
+                               ()=>
+                               { 
+                                setContent(content + item.text) 
+                                message.success("Copied")
+                               }
+                               :
+                               ()=>
+                               { 
+                                setFollow(follow + item.text) 
+                                message.success("Copied")
+                               }
+                            }/>
+                            <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                                <EllipsisOutlined />
+                            </Dropdown>
+                          </Space>
                       </Col>
                     </Row>      
                 </List.Item>
                 <List.Item>
                 <div id="sub-text">
                   {isInputTag ? (
-                    <Highlight style={{fontSize:"14px"}} onClick={() => {
-                      setInputTag(false)
-                      setCardHighLight(true)
-                      setIndexUpdate(i)
-                      setSubIdSelect(item.sub_id)
-                    }} 
+                    <Highlight style={{fontSize:"14px"}} 
+                      onClick={() => {
+                        setCardHighLight(true)
+                        setSubIdSelect(item.sub_id)
+                      }} 
                     search={keyword} tye="text">{item.text}
                     </Highlight>
                    ) : (
@@ -516,6 +613,10 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
                           checkEditandAdd()
                           handleupdateSubEdit(e.target.value , item.sub_id, item.start_time, item.end_time)
                         }}
+                        onFocus = { (e) => {
+                          setSubIdSelect(item.sub_id)
+                          getTime( item.start_time, item.end_time);
+                        }}
                         > 
                         </input>
                       </Col>
@@ -524,7 +625,6 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
                       </Col>
                     </Row>
                     )}
-
                 </div>
                 </List.Item>
             </List.Item>
@@ -537,7 +637,7 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
     <>
       <Row justify={"space-between"} style={{fontSize:"16px",paddingBottom:"10px"}}>
         <Col>
-        <p style={{fontSize:"16px"}}>Transcript</p>
+        <p style={{fontSize:"16px",fontWeight:"bold",color:"#3F3F3F"}}>Transcribe</p>
         </Col>
         <Col>
           <Button 
@@ -560,7 +660,8 @@ const CardsAudioNoneTopic = ({dataVideo,keyword}:any) => {
         <div
             id="scrollableDiv"
             style={{
-              height: 615,
+              //height: 615,
+              height: 581.5,
               overflowY: 'auto',
               overflowX: 'hidden',
               padding: '0 10px'

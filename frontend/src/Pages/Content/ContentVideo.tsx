@@ -6,19 +6,20 @@ import {
   ExportOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
-  LeftCircleOutlined
+  LeftCircleFilled
 } from '@ant-design/icons'
 import CardsVideo from "./Components-Content/CardsVideo"
 import CardsAudio from './Components-Content/CardsAudio'
 import CardsAudioNoneTopic from './Components-Content/CardsAudioNoneTopic'
 import CardsVideoNoneTopic from './Components-Content/CardsVideoNoneTopic'
+import CardTextArea from './Components-Content/CardTextArea'
 import Export from './Components-Content/Export'
 import dayjs from "dayjs"
 import { Link } from 'react-router-dom';
 import { Footer } from 'antd/es/layout/layout'
 import { RotatingLines } from  'react-loader-spinner'
 const { Content } = Layout;
-const { TextArea,Search } = Input;
+const { Search } = Input;
 
 const ContentVideo:FC = () => {
     const { meeting_id } = useParams()
@@ -33,6 +34,7 @@ const ContentVideo:FC = () => {
     const [content,setContent] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [keyword,setKeyword] = useState<String>("")
+    const [tab,setTab] = useState<String>("content")
 
     //load data
     useEffect(() => {
@@ -141,6 +143,12 @@ const ContentVideo:FC = () => {
       const sub_path = (window.URL || window.webkitURL).createObjectURL(blob);
       setURL(sub_path);
       setLoading(false)
+      if(loading == false){
+        console.log("Load data success")
+      }
+      if(loading == true){
+        console.log("Load data error")
+      }
     })
     .catch((error) => {
       console.log(error)
@@ -150,6 +158,8 @@ const ContentVideo:FC = () => {
     const onSearch = (value:String) =>{
       setKeyword(value)
     }
+
+    console.log(loading)
 
   return (
     <>
@@ -176,20 +186,20 @@ const ContentVideo:FC = () => {
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
                         <Link to={`/`} style={{color:"dodgerblue"}}>
-                        <LeftCircleOutlined/>
+                        <LeftCircleFilled/>
                         </Link>
                         </p>
-                        <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
+                        <p style={{fontSize:"24px", fontWeight:"bold",color:"#3F3F3F",paddingBottom:"10px"}}>{item.topic}</p>
                           <Space>
                             <p><CalendarOutlined /></p>
-                            <p style={{fontSize:"16px"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
+                            <p style={{fontSize:"16px",color:"#3F3F3F"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
                             <br></br>
                             <p><ClockCircleOutlined /></p>
                             {
                               dataVideo.map((item:any,index:any) => {
                                 return(
                                   <div key={index}>                        
-                                    <p style={{fontSize:"16px"}}>{SecToTimeHMS(item.duration)}</p>
+                                    <p style={{fontSize:"16px",color:"#3F3F3F"}}>{SecToTimeHMS(item.duration)}</p>
                                   </div>
                                 )
                                 })
@@ -225,11 +235,11 @@ const ContentVideo:FC = () => {
                 </Col>
               </Row>
               <Content style={{marginTop:"20px"}}>
-                <Row style={{height:"580px",marginBottom:"20px"}}>
-                  <Col span={12} style={{paddingRight:"20px"}}>
+                <Row style={{height:"390px",marginBottom:"10px"}}>
+                  <Col span={10} style={{paddingRight:"20px"}}>
                   <video 
                       id="video"
-                      style={{width:"100%"}}
+                      style={{width:"100%",maxWidth:"700px",borderRadius:"8px"}}
                       controls preload="metadata" 
                     > 
                       {
@@ -246,28 +256,13 @@ const ContentVideo:FC = () => {
                       />
                     </video>
                   </Col>
-                  <Col span={12}>
-                    <CardsVideo dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword}/>
+                  <Col span={14}>
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px"}}>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Follow</p>
-                    <TextArea
-                      value={follow}
-                      style={{padding:"auto"}}
-                      autoSize={{ minRows: 8, maxRows: 8 }}
-                      onChange={(e:any) => setFollow(e.target.value)}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Content</p>
-                    <TextArea
-                      value={content}
-                      style={{padding:"auto"}}
-                      autoSize={{ minRows: 8, maxRows: 8 }}
-                      onChange={(e:any) => setContent(e.target.value)}
-                    />
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                    <CardsVideo tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                 </Row>
               </Content>
@@ -285,20 +280,20 @@ const ContentVideo:FC = () => {
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
                         <Link to={`/`} style={{color:"dodgerblue"}}>
-                        <LeftCircleOutlined/>
+                        <LeftCircleFilled/>
                         </Link>
                         </p>
-                        <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
+                        <p style={{fontSize:"24px", paddingBottom:"10px",fontWeight:"bold",color:"#3F3F3F"}}>{item.topic}</p>
                           <Space>
                             <p><CalendarOutlined /></p>
-                            <p style={{fontSize:"16px"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
+                            <p style={{fontSize:"16px",color:"#3F3F3F"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
                             <br></br>
                             <p><ClockCircleOutlined /></p>
                             {
                               dataVideo.map((item:any,index:any) => {
                                 return(
                                   <div key={index}>                        
-                                    <p style={{fontSize:"16px"}}>{SecToTimeHMS(item.duration)}</p>
+                                    <p style={{fontSize:"16px",color:"#3F3F3F"}}>{SecToTimeHMS(item.duration)}</p>
                                   </div>
                                 )
                                 })
@@ -334,11 +329,11 @@ const ContentVideo:FC = () => {
                 </Col>
               </Row>
               <Content style={{marginTop:"20px"}}>
-                <Row style={{height:"580px",marginBottom:"20px"}}>
-                  <Col span={12} style={{paddingRight:"20px"}}>
+                <Row style={{height:"390px",marginBottom:"10px"}}>
+                  <Col span={10} style={{paddingRight:"20px"}}>
                   <video 
                       id="video"
-                      style={{width:"100%"}}
+                      style={{width:"100%",maxWidth:"700px",borderRadius:"8px"}}
                       controls preload="metadata" 
                     > 
                       {
@@ -355,32 +350,17 @@ const ContentVideo:FC = () => {
                       />
                     </video>
                   </Col>
-                  <Col span={12}>
-                    <CardsVideoNoneTopic dataVideo={dataVideo} keyword={keyword}/>
+                  <Col span={14}>
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                 </Row>
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px"}}>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Follow</p>
-                    <TextArea
-                      value={follow}
-                      style={{padding:"auto"}}
-                      autoSize={{ minRows: 8, maxRows: 8 }}
-                      onChange={(e:any) => setFollow(e.target.value)}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Content</p>
-                    <TextArea
-                      value={content}
-                      style={{padding:"auto"}}
-                      autoSize={{ minRows: 8, maxRows: 8 }}
-                      onChange={(e:any) => setContent(e.target.value)}
-                    />
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                    <CardsVideoNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                 </Row>
               </Content>
-            </Layout> 
+            </Layout>
           )
         }
         if(file_extention === "mp3" && dataAgenda === true){ //audio file have topic
@@ -394,20 +374,20 @@ const ContentVideo:FC = () => {
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
                         <Link to={`/`} style={{color:"dodgerblue"}}>
-                        <LeftCircleOutlined/>
+                        <LeftCircleFilled/>
                         </Link>
                         </p>
-                        <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
+                        <p style={{fontSize:"24px", paddingBottom:"10px",fontWeight:"bold",color:"#3F3F3F"}}>{item.topic}</p>
                           <Space>
                             <p><CalendarOutlined /></p>
-                            <p style={{fontSize:"16px"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
+                            <p style={{fontSize:"16px",color:"#3F3F3F"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
                             <br></br>
                             <p><ClockCircleOutlined /></p>
                             {
                               dataVideo.map((item:any,index:any) => {
                                 return(
                                   <div key={index}>                        
-                                    <p style={{fontSize:"16px"}}>{SecToTimeHMS(item.duration)}</p>
+                                    <p style={{fontSize:"16px",color:"#3F3F3F"}}>{SecToTimeHMS(item.duration)}</p>
                                   </div>
                                 )
                                 })
@@ -444,7 +424,8 @@ const ContentVideo:FC = () => {
               </Row>
               <Content style={{marginTop:"20px"}} >
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"35px"}}>
+                    {/*
                     <div style={{paddingBottom:"10px"}}>
                     <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
                       <TextArea
@@ -463,16 +444,18 @@ const ContentVideo:FC = () => {
                         onChange={(e:any) => setContent(e.target.value)}
                       />
                     </div>
+                    */}
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                   <Col span={12}>
-                    <CardsAudio dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword}/>
+                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                 </Row>
               </Content>
               <Footer style={{padding:"0px"}}>
                 <audio
                   id="audio" 
-                  style={{width:"100%"}}
+                  style={{width:"100%",borderRadius:"8px"}}
                   controls preload="metadata" 
                 > 
                   {
@@ -498,20 +481,20 @@ const ContentVideo:FC = () => {
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
                         <Link to={`/`} style={{color:"dodgerblue"}}>
-                        <LeftCircleOutlined/>
+                        <LeftCircleFilled/>
                         </Link>
                         </p>
-                        <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
+                        <p style={{fontSize:"24px", paddingBottom:"10px",fontWeight:"bold",color:"#3F3F3F"}}>{item.topic}</p>
                           <Space>
                             <p><CalendarOutlined /></p>
-                            <p style={{fontSize:"16px"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
+                            <p style={{fontSize:"16px",color:"#3F3F3F"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
                             <br></br>
                             <p><ClockCircleOutlined /></p>
                             {
                               dataVideo.map((item:any,index:any) => {
                                 return(
                                   <div key={index}>                        
-                                    <p style={{fontSize:"16px"}}>{SecToTimeHMS(item.duration)}</p>
+                                    <p style={{fontSize:"16px",color:"#3F3F3F"}}>{SecToTimeHMS(item.duration)}</p>
                                   </div>
                                 )
                                 })
@@ -548,7 +531,8 @@ const ContentVideo:FC = () => {
               </Row>
               <Content style={{marginTop:"20px"}} >
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"35px"}}>
+                    {/*
                     <div style={{paddingBottom:"10px"}}>
                     <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
                       <TextArea
@@ -567,17 +551,19 @@ const ContentVideo:FC = () => {
                         onChange={(e:any) => setContent(e.target.value)}
                       />
                     </div>
+                    */}
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                   <Col span={12}>
-                    <CardsAudioNoneTopic dataVideo={dataVideo} keyword={keyword}/>
+                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} content={content} setContent={setContent} setFollow={setFollow} follow={follow}/>
                   </Col>
                 </Row>
               </Content>
               <Footer style={{padding:"0px"}}>
                 <audio 
                   id="audio"
-                  style={{width:"100%"}}
-                  controls preload="metadata" 
+                  style={{width:"100%",borderRadius:"8px"}}
+                  controls preload="metadata"
                 > 
                   {
                     dataVideo.map((item:any,index:any) => {
@@ -602,20 +588,20 @@ const ContentVideo:FC = () => {
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
                         <Link to={`/`} style={{color:"dodgerblue"}}>
-                        <LeftCircleOutlined/>
+                        <LeftCircleFilled/>
                         </Link>
                         </p>
-                        <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
+                        <p style={{fontSize:"24px", paddingBottom:"10px",fontWeight:"bold",color:"#3F3F3F"}}>{item.topic}</p>
                           <Space>
                             <p><CalendarOutlined /></p>
-                            <p style={{fontSize:"16px"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
+                            <p style={{fontSize:"16px",color:"#3F3F3F"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
                             <br></br>
                             <p><ClockCircleOutlined /></p>
                             {
                               dataVideo.map((item:any,index:any) => {
                                 return(
                                   <div key={index}>                        
-                                    <p style={{fontSize:"16px"}}>{SecToTimeHMS(item.duration)}</p>
+                                    <p style={{fontSize:"16px",color:"#3F3F3F"}}>{SecToTimeHMS(item.duration)}</p>
                                   </div>
                                 )
                                 })
@@ -652,7 +638,8 @@ const ContentVideo:FC = () => {
               </Row>
               <Content style={{marginTop:"20px"}} >
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"35px"}}>
+                    {/*
                     <div style={{paddingBottom:"10px"}}>
                     <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
                       <TextArea
@@ -671,16 +658,18 @@ const ContentVideo:FC = () => {
                         onChange={(e:any) => setContent(e.target.value)}
                       />
                     </div>
+                   */}
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                   <Col span={12}>
-                    <CardsAudio dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword}/>
+                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                 </Row>
               </Content>
               <Footer style={{padding:"0px"}}>
                 <audio
                   id="audio" 
-                  style={{width:"100%"}}
+                  style={{width:"100%",borderRadius:"8px"}}
                   controls preload="metadata" 
                 > 
                   {
@@ -706,20 +695,20 @@ const ContentVideo:FC = () => {
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
                         <Link to={`/`} style={{color:"dodgerblue"}}>
-                        <LeftCircleOutlined/>
+                        <LeftCircleFilled/>
                         </Link>
                         </p>
-                        <p style={{fontSize:"24px", paddingBottom:"10px"}}>{item.topic}</p>
+                        <p style={{fontSize:"24px", paddingBottom:"10px",fontWeight:"bold",color:"#3F3F3F"}}>{item.topic}</p>
                           <Space>
                             <p><CalendarOutlined /></p>
-                            <p style={{fontSize:"16px"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
+                            <p style={{fontSize:"16px",color:"#3F3F3F"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
                             <br></br>
                             <p><ClockCircleOutlined /></p>
                             {
                               dataVideo.map((item:any,index:any) => {
                                 return(
                                   <div key={index}>                        
-                                    <p style={{fontSize:"16px"}}>{SecToTimeHMS(item.duration)}</p>
+                                    <p style={{fontSize:"16px",color:"#3F3F3F"}}>{SecToTimeHMS(item.duration)}</p>
                                   </div>
                                 )
                                 })
@@ -756,7 +745,8 @@ const ContentVideo:FC = () => {
               </Row>
               <Content style={{marginTop:"20px"}} >
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"35px"}}>
+                    {/*
                     <div style={{paddingBottom:"10px"}}>
                     <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
                       <TextArea
@@ -775,16 +765,18 @@ const ContentVideo:FC = () => {
                         onChange={(e:any) => setContent(e.target.value)}
                       />
                     </div>
+                    */}
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                   <Col span={12}>
-                    <CardsAudioNoneTopic dataVideo={dataVideo} keyword={keyword}/>
+                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
                   </Col>
                 </Row>
               </Content>
               <Footer style={{padding:"0px"}}>
                 <audio 
                   id="audio"
-                  style={{width:"100%"}}
+                  style={{width:"100%",borderRadius:"8px"}}
                   controls preload="metadata" 
                 > 
                   {
