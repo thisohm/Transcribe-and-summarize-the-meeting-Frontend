@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react'
 import axios from 'axios';
-import {Modal,Input , Select, Form} from 'antd'
+import {Modal,Input , Select, Form, message} from 'antd'
 import { saveAs } from "file-saver";
 import { AlignmentType, Document, HeadingLevel, Packer, Paragraph, TextRun } from "docx";
 import { useParams } from 'react-router-dom';
@@ -706,12 +706,13 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
             Packer.toBlob(doc).then((blob) => {
             saveAs(blob, fileName+".docx");
             });
+            message.success("Export " +fileName+".docx success")
         }
         if(fileType==="txt")
         {
             var blob = new Blob([txt], { type: "text/plain;charset=utf-8" });
             saveAs(blob, fileName+".txt");
-        
+            message.success("Export " +fileName+".txt success")
         }
     }
     

@@ -13,12 +13,15 @@ import Import from "../Pages/Import/Import";
 import Meeting from "../Pages/Meeting/Meeting";
 import Trash from "../Pages/Trash/Trash";
 import Content from "../Pages/Content/ContentVideo";
+import Startpage from "../Pages/Start/Startpage";
 
-const PageContent:FC = () =>{
+const PageContent:FC = () => {
+
   return(
 
     <Routes>
-      <Route path="/" Component={Meeting}></Route>
+      <Route path="/" Component={Startpage}></Route>
+      <Route path="/meeting" Component={Meeting}></Route>
       <Route path="/import" Component={Import}></Route>
       <Route path="/trash" Component={Trash}></Route>
       <Route path="/meeting/:meeting_id" Component={Content}></Route>
@@ -35,7 +38,9 @@ const Navmenu: FC = () => {
       <>
       <Layout>
         <Sider className="App-sider">
-          <div className="logo"></div>
+          <div style={{padding:"20px 10px 10px"}}>
+            <button onClick={()=>navigate('/')} style={{height:"62px",width:"100%",borderRadius:"10px",cursor:"pointer"}}><img src={require("./logo/logo.jpg")} style={{height:"62px",width:"100%",borderRadius:"10px"}}></img></button>
+          </div>
           <Menu className="menu"
             theme="dark"
             mode="inline"
@@ -49,7 +54,7 @@ const Navmenu: FC = () => {
                 label: 'Create Meetings',
               },
               {
-                key: '/',
+                key: '/meeting',
                 icon: <VideoCameraOutlined />,
                 label: 'Meetings',
               },

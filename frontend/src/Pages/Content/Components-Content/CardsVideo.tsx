@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Card,List,Dropdown,Menu,Row,Col,Button,Space, message } from "antd"
+import { Card,List,Dropdown,Menu,Row,Col,Button,Space, message,Popover } from "antd"
 import { 
   EllipsisOutlined,
   CheckOutlined,
@@ -532,7 +532,7 @@ const CardsVideo = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       if(stateDelete == '2'){
         const deletesub = await editContent(video_id,deleteSub)
       } 
-      message.success("Save success")
+      message.success("Save success, please wait for reload")
       setTimeout(function(){
         window.location.reload();
      }, 1000);
@@ -1915,12 +1915,12 @@ const CardsVideo = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
           dataAgenda.map((item:any,index:any) => (            
             (index==0) ? {
               key: String(index),
-              tab: 'Main'
+              tab: <Popover content={"Main"} trigger={"hover"}>Main</Popover>
             }
             :
             {
               key: String(index),
-              tab:item.agentopic
+              tab: <Popover content={item.agendetail} trigger={"hover"}>{item.agentopic}</Popover>
             }
           ))
         }

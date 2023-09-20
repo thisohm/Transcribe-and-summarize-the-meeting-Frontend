@@ -1,7 +1,7 @@
 import {FC,useEffect,useState} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import {Row, Col, Layout, Space, Button, Input} from 'antd'
+import {Row, Col, Layout, Space, Button, Input,Divider} from 'antd'
 import { 
   ExportOutlined,
   CalendarOutlined,
@@ -148,6 +148,9 @@ const ContentVideo:FC = () => {
       }
       if(loading == true){
         console.log("Load data error")
+        setTimeout(function(){
+          window.location.reload();
+       }, 500);
       }
     })
     .catch((error) => {
@@ -159,18 +162,20 @@ const ContentVideo:FC = () => {
       setKeyword(value)
     }
 
-    console.log(loading)
-
   return (
     <>
     { loading ?
-      <RotatingLines
-      strokeColor="grey"
-      strokeWidth="5"
-      animationDuration="0.75"
-      width="30"
-      visible={true}
-      />
+      <div style={{margin:"auto",paddingTop:"450px"}}>
+        <Divider orientation="center">
+          <RotatingLines
+          strokeColor="grey"
+          strokeWidth="2"
+          animationDuration="0.75"
+          width="80"
+          visible={true}
+          />
+        </Divider>
+      </div>
     :
       dataVideo.map((item:any,index:any)=>{
         const file_extention = ((item.video_path).substring((item.video_path).lastIndexOf(".") + 1))
@@ -185,7 +190,7 @@ const ContentVideo:FC = () => {
                       return(
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <Link to={`/meeting`} style={{color:"dodgerblue"}}>
                         <LeftCircleFilled/>
                         </Link>
                         </p>
@@ -279,7 +284,7 @@ const ContentVideo:FC = () => {
                       return(
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <Link to={`/meeting`} style={{color:"dodgerblue"}}>
                         <LeftCircleFilled/>
                         </Link>
                         </p>
@@ -373,7 +378,7 @@ const ContentVideo:FC = () => {
                       return(
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <Link to={`/meeting`} style={{color:"dodgerblue"}}>
                         <LeftCircleFilled/>
                         </Link>
                         </p>
@@ -480,7 +485,7 @@ const ContentVideo:FC = () => {
                       return(
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <Link to={`/meeting`} style={{color:"dodgerblue"}}>
                         <LeftCircleFilled/>
                         </Link>
                         </p>
@@ -587,7 +592,7 @@ const ContentVideo:FC = () => {
                       return(
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <Link to={`/meeting`} style={{color:"dodgerblue"}}>
                         <LeftCircleFilled/>
                         </Link>
                         </p>
@@ -694,7 +699,7 @@ const ContentVideo:FC = () => {
                       return(
                       <div key={index}>
                         <p style={{fontSize:"20px",paddingBottom:"10px"}}>
-                        <Link to={`/`} style={{color:"dodgerblue"}}>
+                        <Link to={`/meeting`} style={{color:"dodgerblue"}}>
                         <LeftCircleFilled/>
                         </Link>
                         </p>

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Card,List,Dropdown,Menu,Row,Col,Button,Space, message } from "antd"
+import { Card,List,Dropdown,Menu,Row,Col,Button,Space, message, Popover } from "antd"
 import { 
   EllipsisOutlined,
   CheckOutlined,
@@ -133,7 +133,7 @@ const CarddVideoNoneTopic = ({dataVideo,keyword,setContent,content,setFollow,fol
     const tabList = [
       {
         key: '0',
-        tab: 'Main'
+        tab: <Popover content={"Main"} trigger={"hover"}>Main</Popover>
       }
     ]
 
@@ -484,7 +484,7 @@ const CarddVideoNoneTopic = ({dataVideo,keyword,setContent,content,setFollow,fol
       if(stateDelete == '2'){
         const deletesub = await editContent(video_id,deleteSub)
       } 
-      message.success("Save success")
+      message.success("Save success, please wait for reload")
       setTimeout(function(){
         window.location.reload();
      }, 1000);

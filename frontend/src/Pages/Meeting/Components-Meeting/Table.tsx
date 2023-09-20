@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';
 import './index.css'
-import { Table,Popconfirm, Space } from 'antd';
+import { Table,Popconfirm, Space,Popover } from 'antd';
 import axios from "axios"
 import {
   DeleteOutlined
@@ -78,7 +78,7 @@ const DataTable = () => {
     .then(axios.spread(({...meeting}) => {
       setMeetList(meeting.data.result.map((item:any,index:any) => 
         ({
-          key:index,meeting_id:item.meeting_id,topic:item.topic,meettype:item.meettype,
+          key:index,meeting_id:item.meeting_id,topic:item.topic,meettype:<Popover content={(item.meettype === "Meeting Online")?item.meetapp:item.location} trigger={"hover"}>{item.meettype}</Popover>,
           created_timestamp:dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A"),
           action:
           <Space size={'middle'}>
