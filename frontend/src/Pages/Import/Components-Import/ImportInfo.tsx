@@ -1,22 +1,34 @@
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import './../../../index.css';
 import 
   {
-    Button, Form, Upload,Input, UploadFile
+    Button, Form, Upload,Input, UploadFile,message,
   } from 'antd';
 import
   {
     InboxOutlined,
   } from '@ant-design/icons';
+import type { UploadProps } from 'antd';
+
 import axios from 'axios';
 
 const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDisStep4,
-                    title,setTitle,meetId,setMeetId,fileData,agendaData}:any) =>{
+                    title,setTitle,meetId,setMeetId,fileData,agendaData,fileUpload,setFileUpload}:any) =>{
 
   const [finish,setFinish] = useState(false)
-  const [fileUpload,setFileUpload] = useState<UploadFile[]>([])
   const [loadings, setLoadings] = useState<boolean[]>([]);
+  const [showFile,setShowFile] = useState(false)
+  const [defaultFile,setDefaultFile] = useState(fileUpload[0]) 
   
+  
+  const props: UploadProps = {
+    defaultFileList: [(defaultFile!=undefined)?defaultFile:{}],
+  }
+
+  useEffect(()=>{
+    (defaultFile != undefined) ? setShowFile(true) : setShowFile(false)
+  },[])
+
   //Post data to api
   const onSubmit = async() => {
     
@@ -98,6 +110,8 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
     }, 6000);
   };
 
+  console.log(fileUpload[0])
+
   return (
     <Form onFinish={onSubmit}>
       <div style={{padding:"50px",margin:"auto",width:"800px"}}>
@@ -109,20 +123,39 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
           rules={[{
           required:true, 
           message:"Please enter title"
-          }]}
+          },]}
         >
           <Input onChange={(e)=>setTitle(e.target.value)} placeholder='title'/>
         </Form.Item>
 
-        <Form.Item>
+        <Form.Item
+          name="fileUpload" 
+          label="File" 
+          rules={[{
+          required:true, 
+          message:"Please upload file"
+          },]}
+        >
           <Upload.Dragger
             accept=".mp4,.mp3,.wav"
             name="file"
+            showUploadList={showFile}
             maxCount={1}
             beforeUpload={(file)=>{
-              setFileUpload([...fileUpload,file])
-              return false
+              const isLt2M = file.size / 1024 / 1024 < 1024;
+              if (!isLt2M) {
+                message.error('File must smaller than 1GB!');
+                setFileUpload([])
+                setShowFile(false)
+              }
+              else{
+                setFileUpload([file,...fileUpload])
+                setShowFile(true)
+                return false
+              }
+              return isLt2M;
             }}
+            {...props}
             >
               <p className="ant-upload-drag-icon">
               <InboxOutlined />
@@ -131,7 +164,10 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
                 Click or drag file to this area to upload
               </p>
               <p className="ant-upload-hint">
-                Support for a single upload.
+                Support for a single upload, accept mp3, mp4 and wav
+              </p>
+              <p className="ant-upload-hint">
+                Maximum file size 1 GB
               </p>
           </Upload.Dragger>
         </Form.Item>
@@ -144,6 +180,7 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
               type="primary"
               htmlType="submit"
               loading={loadings[1]}
+              disabled={(title==="" || fileUpload[0]===undefined) ? true : false}
               onClick={() => enterLoading(1)}
               >
               Submit

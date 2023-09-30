@@ -1,6 +1,6 @@
 import {FC,useState} from 'react';
 import './../../index.css';
-import { Steps } from 'antd';
+import { Steps,UploadFile } from 'antd';
 import FileInfo from './Components-Import/FileInfo';
 import AgendaInfo from './Components-Import/AgendaInfo';
 import ImportInfo from './Components-Import/ImportInfo';
@@ -62,6 +62,7 @@ const Import:FC = () => {
   //state for ImportInfo
   const [title,setTitle] = useState("")
   const [meetId,setMeetId] = useState("")
+  const [fileUpload,setFileUpload] = useState<UploadFile[]>([])
   //next step
   const nextStep = () =>{
     setStep(step + 1)
@@ -84,7 +85,7 @@ const Import:FC = () => {
 	
   <ImportInfo backStep={backStep} nextStep={nextStep} setDisStep1={setDisStep1} setDisStep2={setDisStep2} 
   setDisStep3={setDisStep3} setDisStep4={setDisStep4} title={title} setTitle={setTitle} meetId={meetId} 
-  setMeetId={setMeetId} fileData={fileData} agendaData={agendaData}/>,
+  setMeetId={setMeetId} fileData={fileData} agendaData={agendaData} fileUpload={fileUpload} setFileUpload={setFileUpload}/>,
 
   <ResultPage />
   ]

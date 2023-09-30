@@ -20,6 +20,7 @@
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
+    "react-window": "^1.8.9",
     "typescript": "^5.0.2",
     "uuid": "^9.0.0",
     "validator": "^13.9.0"
@@ -53,6 +54,7 @@
     "@types/file-saver": "^2.0.5",
     "@types/mark.js": "^8.11.8",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-window": "^1.8.5",
     "@types/uuid": "^9.0.2",
     "@types/validator": "^13.7.17",
     "mark.js": "^8.11.1",

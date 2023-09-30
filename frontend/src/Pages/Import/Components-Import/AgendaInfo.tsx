@@ -1,15 +1,18 @@
 import './../../../index.css';
+import { useState } from 'react';
 import 
 {
-   Button, Form, Input, Space
+   Button, Form, Input, Space, TimePicker
 } from 'antd';
 import
 {
   PlusSquareOutlined,
   MinusCircleOutlined,
 } from '@ant-design/icons';
+import dayjs from 'dayjs'
 
 const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,state,setState }:any) =>{
+  const [indexI,setIndexI] = useState<any>()
 
   //add agenda to state
   const handleInputData = (e:any,i:any) =>{
@@ -18,6 +21,14 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
     const data = [...agendaData]
     data[i][name] = value
     setAgendaData(data)
+  }
+
+  const handleTime = (time:any,timeString:any) =>{
+    const data = [...agendaData]
+    
+    data[indexI].agentime = timeString
+    setAgendaData(data)
+    
   }
 
   //add initial topic
@@ -32,7 +43,7 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
 
   //add initial time
   const initialTime = (i:any)=>{
-    return agendaData[i].agentime
+    return dayjs(agendaData[i].agentime,"HH:mm:ss")
   }
 
   //add initial fields
@@ -43,7 +54,7 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
     setAgendaData([...agendaData,{
       agentopic:"",
       agendetail:"",
-      agentime: ""
+      agentime: "00:00:00"
       }])
     setState([...state,blank])
   }
@@ -73,7 +84,7 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
             <>
               {values.map(({key, name, ...restField }) => (
                 <Space key={key} direction="horizontal" size={12}>
-
+                  
                   <Form.Item
                     {...restField}
                     name={[name, "agentopic"]}
@@ -112,8 +123,13 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
                       message: "Please enter time"
                     }]}
                     style={{width:"200px"}}
-                  >
-                    <Input name="agentime" onChange={(e)=>handleInputData(e,name)} type="time" step="1" placeholder="Time"/>
+                  > 
+                    <TimePicker
+                      allowClear={false}
+                      onChange={handleTime}
+                      onFocus={()=>setIndexI(name)}
+                    />
+                    {/*<Input name="agentime" onChange={(e)=>handleInputData(e,name)} type="time" step="1" placeholder="Time"/>*/}
                   </Form.Item>
 
                   <MinusCircleOutlined style={{height:40,color:"red"}} 

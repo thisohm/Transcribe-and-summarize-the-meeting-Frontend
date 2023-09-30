@@ -30,7 +30,7 @@ const ContentVideo:FC = () => {
     const [dataVideo,setDataVideo]:any[] = useState([])
     const [demo_url,setURL] = useState("")
     const [loading,setLoading] = useState(false)
-    const [follow,setFollow] = useState("")
+    const [action,setAction] = useState("")
     const [content,setContent] = useState("")
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [keyword,setKeyword] = useState<String>("")
@@ -43,15 +43,15 @@ const ContentVideo:FC = () => {
         loadDataVideo(meeting_id)
     }, [meeting_id])
 
-    //localstorage follow
+    //localstorage action
     useEffect(() => {
-      const data = localStorage.getItem(String(meeting_id+'follow'))
+      const data = localStorage.getItem(String(meeting_id+'action'))
       if (data) {
-        setFollow(JSON.parse(data))
+        setAction(JSON.parse(data))
       }
     }, [])
     useEffect(() => {
-      localStorage.setItem(String(meeting_id+'follow'),JSON.stringify(follow))
+      localStorage.setItem(String(meeting_id+'action'),JSON.stringify(action))
     })
 
     //localstorage content
@@ -65,7 +65,6 @@ const ContentVideo:FC = () => {
       localStorage.setItem(String(meeting_id+'content'),JSON.stringify(content))
     })
     
-
     const loadDataMeeting = async (meeting_id:any) => {
 
           let config = {
@@ -240,11 +239,11 @@ const ContentVideo:FC = () => {
                 </Col>
               </Row>
               <Content style={{marginTop:"20px"}}>
-                <Row style={{height:"390px",marginBottom:"10px"}}>
-                  <Col span={10} style={{paddingRight:"20px"}}>
+                <Row style={{height:"230px",marginBottom:"10px"}}>
+                  <Col span={10} style={{paddingLeft:"120px"}}>
                   <video 
                       id="video"
-                      style={{width:"100%",maxWidth:"700px",borderRadius:"8px"}}
+                      style={{width:"100%",maxWidth:"400px", maxHeight:"300px",borderRadius:"8px"}}
                       controls preload="metadata" 
                     > 
                       {
@@ -258,16 +257,17 @@ const ContentVideo:FC = () => {
                         label="ซับไทย"
                         kind="subtitles"
                         src={demo_url}
+                        default
                       />
                     </video>
                   </Col>
                   <Col span={14}>
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
                 <Row>
                   <Col span={10} style={{paddingRight:"20px"}}>
-                    <CardsVideo tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                    <CardsVideo tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
               </Content>
@@ -334,11 +334,11 @@ const ContentVideo:FC = () => {
                 </Col>
               </Row>
               <Content style={{marginTop:"20px"}}>
-                <Row style={{height:"390px",marginBottom:"10px"}}>
-                  <Col span={10} style={{paddingRight:"20px"}}>
+                <Row style={{height:"230px",marginBottom:"10px"}}>
+                  <Col span={10} style={{paddingLeft:"120px"}}>
                   <video 
                       id="video"
-                      style={{width:"100%",maxWidth:"700px",borderRadius:"8px"}}
+                      style={{width:"100%",maxWidth:"400px", maxHeight:"300px",borderRadius:"8px"}}
                       controls preload="metadata" 
                     > 
                       {
@@ -352,16 +352,17 @@ const ContentVideo:FC = () => {
                         label="ซับไทย"
                         kind="subtitles"
                         src={demo_url}
+                        default
                       />
                     </video>
                   </Col>
                   <Col span={14}>
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
                 <Row>
                   <Col span={10} style={{paddingRight:"20px"}}>
-                    <CardsVideoNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                    <CardsVideoNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
               </Content>
@@ -429,31 +430,11 @@ const ContentVideo:FC = () => {
               </Row>
               <Content style={{marginTop:"20px"}} >
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"35px"}}>
-                    {/*
-                    <div style={{paddingBottom:"10px"}}>
-                    <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
-                      <TextArea
-                        value={follow}
-                        style={{padding:"auto"}}
-                        autoSize={{ minRows: 15, maxRows: 15 }}
-                        onChange={(e:any) => setFollow(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Content</p>
-                      <TextArea
-                        value={content}
-                        style={{padding:"auto"}}
-                        autoSize={{ minRows: 15, maxRows: 15 }}
-                        onChange={(e:any) => setContent(e.target.value)}
-                      />
-                    </div>
-                    */}
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                   <Col span={12}>
-                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
               </Content>
@@ -536,31 +517,11 @@ const ContentVideo:FC = () => {
               </Row>
               <Content style={{marginTop:"20px"}} >
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"35px"}}>
-                    {/*
-                    <div style={{paddingBottom:"10px"}}>
-                    <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
-                      <TextArea
-                        value={follow}
-                        style={{padding:"auto"}}
-                        autoSize={{ minRows: 15, maxRows: 15 }}
-                        onChange={(e:any) => setFollow(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Content</p>
-                      <TextArea
-                        value={content}
-                        style={{padding:"auto"}}
-                        autoSize={{ minRows: 15, maxRows: 15 }}
-                        onChange={(e:any) => setContent(e.target.value)}
-                      />
-                    </div>
-                    */}
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} content={content} setContent={setContent} setAction={setAction} action={action}/>
                   </Col>
                   <Col span={12}>
-                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} content={content} setContent={setContent} setFollow={setFollow} follow={follow}/>
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
               </Content>
@@ -643,31 +604,11 @@ const ContentVideo:FC = () => {
               </Row>
               <Content style={{marginTop:"20px"}} >
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"35px"}}>
-                    {/*
-                    <div style={{paddingBottom:"10px"}}>
-                    <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
-                      <TextArea
-                        value={follow}
-                        style={{padding:"auto"}}
-                        autoSize={{ minRows: 15, maxRows: 15 }}
-                        onChange={(e:any) => setFollow(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Content</p>
-                      <TextArea
-                        value={content}
-                        style={{padding:"auto"}}
-                        autoSize={{ minRows: 15, maxRows: 15 }}
-                        onChange={(e:any) => setContent(e.target.value)}
-                      />
-                    </div>
-                   */}
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                   <Col span={12}>
-                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
               </Content>
@@ -750,31 +691,11 @@ const ContentVideo:FC = () => {
               </Row>
               <Content style={{marginTop:"20px"}} >
                 <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"35px"}}>
-                    {/*
-                    <div style={{paddingBottom:"10px"}}>
-                    <p style={{fontSize:"16px",paddingBottom:"20px"}}>Follow</p>
-                      <TextArea
-                        value={follow}
-                        style={{padding:"auto"}}
-                        autoSize={{ minRows: 15, maxRows: 15 }}
-                        onChange={(e:any) => setFollow(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                    <p style={{fontSize:"16px",paddingBottom:"10px"}}>Content</p>
-                      <TextArea
-                        value={content}
-                        style={{padding:"auto"}}
-                        autoSize={{ minRows: 15, maxRows: 15 }}
-                        onChange={(e:any) => setContent(e.target.value)}
-                      />
-                    </div>
-                    */}
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
+                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                   <Col span={12}>
-                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setFollow={setFollow} follow={follow}/>
+                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
               </Content>

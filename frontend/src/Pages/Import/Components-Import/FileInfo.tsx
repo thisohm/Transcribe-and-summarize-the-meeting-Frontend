@@ -145,7 +145,7 @@ dateValue, setDateValue, timeInitial, setTimeInitial, timeValue, setTimeValue }:
             message:"Date is required"
           }]}
         >
-          <DatePicker onChange={dateGetValue}/>
+          <DatePicker allowClear={false} onChange={dateGetValue}/>
         </Form.Item>
 
         <Form.Item
@@ -157,7 +157,7 @@ dateValue, setDateValue, timeInitial, setTimeInitial, timeValue, setTimeValue }:
             message:'Time is required'
           }]}
         >
-            <TimePicker onChange={timeGetValue}/>
+            <TimePicker allowClear={false} onChange={timeGetValue}/>
         </Form.Item>
 
       </div>

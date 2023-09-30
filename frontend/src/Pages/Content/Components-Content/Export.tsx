@@ -154,7 +154,8 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                 new Paragraph({
                     children: [
                         new TextRun({
-                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content")))
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"))),
+                            size: 22
                         })
                     ]
                 }),
@@ -165,7 +166,8 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                 new Paragraph({
                     children: [
                         new TextRun({
-                            text: JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"action"))),
+                            size: 22
                         })
                     ]
                 })
@@ -450,7 +452,8 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                 new Paragraph({
                     children: [
                         new TextRun({
-                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content")))
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"))),
+                            size: 22
                         })
                     ]
                 }),
@@ -461,7 +464,8 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                 new Paragraph({
                     children: [
                         new TextRun({
-                            text: JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"action"))),
+                            size: 22
                         })
                     ]
                 }),
@@ -494,7 +498,7 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
             "Content" + "\n" + 
             JSON.parse(String(localStorage.getItem(meeting_id+"content"))) + "\n" + "\n" +
             "Action" + "\n" + 
-            JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
+            JSON.parse(String(localStorage.getItem(meeting_id+"action")))
         :
             "Topic : " + dataMeeting?.topic + "\n" +
             "Date&time : " + dayjs(dataMeeting?.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A") + "\n" +
@@ -697,7 +701,7 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
             "Content" + "\n" + 
             JSON.parse(String(localStorage.getItem(meeting_id+"content"))) + "\n" + "\n" +
             "Action" + "\n" + 
-            JSON.parse(String(localStorage.getItem(meeting_id+"follow")))
+            JSON.parse(String(localStorage.getItem(meeting_id+"action")))
         )         
         
     const exportFile = (fileType:String) => {
