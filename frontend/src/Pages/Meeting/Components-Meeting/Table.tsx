@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';
 import './index.css'
-import { Table,Popconfirm, Space,Popover } from 'antd';
+import { Table,Popconfirm, Space,Popover,Badge } from 'antd';
 import axios from "axios"
 import {
   DeleteOutlined
@@ -20,7 +20,19 @@ const DataTable = () => {
   }, [])
 
   const columns = [
-  
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      width: 100,
+      onCell:(record:any) => {
+        return {
+            onClick: () => {   
+              navigate(`/meeting/${record.meeting_id}`)
+            }
+        }
+      }
+    },
     {
       title: 'Topic',
       dataIndex: 'topic',
@@ -38,7 +50,7 @@ const DataTable = () => {
       title: 'Type of Meeting',
       dataIndex: 'meettype',
       key: 'meettype',
-      width: 250,
+      width: 200,
       onCell:(record:any) => {
         return {
             onClick: () => {   
@@ -48,10 +60,23 @@ const DataTable = () => {
       }
     },
     {
-      title: 'Created',
-      dataIndex: 'created_timestamp',
-      key: 'created_timestamp',
-      width: 250,
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      width: 125,
+      onCell:(record:any) => {
+        return {
+            onClick: () => {   
+              navigate(`/meeting/${record.meeting_id}`)
+            }
+        }
+      }
+    },
+    {
+      title: 'Time',
+      dataIndex: 'time',
+      key: 'time',
+      width: 125,
       onCell:(record:any) => {
         return {
             onClick: () => {   
@@ -78,8 +103,12 @@ const DataTable = () => {
     .then(axios.spread(({...meeting}) => {
       setMeetList(meeting.data.result.map((item:any,index:any) => 
         ({
-          key:index,meeting_id:item.meeting_id,topic:item.topic,meettype:<Popover content={(item.meettype === "Meeting Online")?item.meetapp:item.location} trigger={"hover"}>{item.meettype}</Popover>,
-          created_timestamp:dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A"),
+          key:index,
+          status:(
+            localStorage.getItem(item.meeting_id+"content") === null && localStorage.getItem(item.meeting_id+"action") === null ? <Badge status="warning" text="New" /> : <Badge status="processing" text="In progress" />
+          )
+          ,meeting_id:item.meeting_id,topic:item.topic,meettype:<Popover content={(item.meettype === "Meeting Online")?item.meetapp:item.location} trigger={"hover"}>{item.meettype}</Popover>,
+          date:dayjs(item.meetdate).format("ddd, MMM D, YYYY"),time:item.meettime,
           action:
           <Space size={'middle'}>
             <br></br>

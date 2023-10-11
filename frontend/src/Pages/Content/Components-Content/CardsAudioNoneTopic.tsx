@@ -333,7 +333,7 @@ const CardsAudioNoneTopic = ({tab,dataVideo,keyword,setContent,content,setAction
 
   const menuItemsSub = [
     {label: 'Edit',icon:<EditOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>,key:'edit'},
-    {label: 'Insert',icon:<PlusCircleOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>, key: 'insert'},
+    /*{label: 'Insert',icon:<PlusCircleOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>, key: 'insert'},*/
     {label: 'Delete',icon:<CloseCircleOutlined style={{color:"red",fontSize:"14px"}} />, key: 'delete'},
   ];
 
@@ -390,7 +390,7 @@ const CardsAudioNoneTopic = ({tab,dataVideo,keyword,setContent,content,setAction
     let value = e.target.value;
 
     if( isSelected ){
-      setSelectedItems( [...selectedItems, value ].join('') )
+      setSelectedItems( [...selectedItems, value ] )
     }else{
       setSelectedItems((prevData:any)=>{
         return prevData.filter((text:any)=>{
@@ -406,7 +406,7 @@ const CardsAudioNoneTopic = ({tab,dataVideo,keyword,setContent,content,setAction
     }else{
       const alltext = dataSub.map((item:any)=>{
         return item.text
-      }).join('')
+      })
       setSelectedItems( alltext )
     }
   }
@@ -495,10 +495,10 @@ const CardsAudioNoneTopic = ({tab,dataVideo,keyword,setContent,content,setAction
     0: 
     <Lists
       ref={listRef}
-      width={780}
-      height={605}
+      width={625}
+      height={540}
       itemCount={dataSub.length}
-      itemSize={80}
+      itemSize={75}
     >
       {Rows}
     </Lists>
@@ -521,7 +521,7 @@ return (
             <SaveOutlined />Save
           </Button>
 
-          <Button type="primary" onClick={checkAllHandler} >
+          <Button type="primary" onClick={checkAllHandler} onFocus={pauseVDO}>
             <CheckOutlined />{ dataSub.length === selectedItems.length ? 'Unselect All' : 'Select all' }
           </Button>
 
@@ -530,14 +530,14 @@ return (
               tab === "content" ? 
                 ()=>
                   { 
-                    setContent(content + selectedItems) 
+                    setContent(content + selectedItems.join('')) 
                     setSelectedItems( [] )
                     message.success("Copied")
                   }
                   :
                 ()=>
                   { 
-                    setAction(action + selectedItems) 
+                    setAction(action + selectedItems.join('')) 
                     setSelectedItems( [] )
                     message.success("Copied")
                   }

@@ -8,7 +8,7 @@ const Content = ({file_extention,setContent,content}:any) => {
     <TextArea
         value={content}
         style={{padding:"auto",fontSize:"16px"}}
-        autoSize={{ minRows: (file_extention==="mp4") ? 26.55 : 21.85, maxRows: (file_extention==="mp4") ? 26.55 : 21.85 }}
+        autoSize={{ minRows: 26.55, maxRows: 26.55}}
         onChange={(e:any) => setContent(e.target.value)}
     />
   )

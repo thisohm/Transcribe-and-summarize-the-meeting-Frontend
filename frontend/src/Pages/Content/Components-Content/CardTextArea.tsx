@@ -30,7 +30,7 @@ const CardTextArea = ({file_extention,setTab,setContent,content,setAction,action
   };
   
   return (
-    <div style={{paddingTop: (file_extention === "mp4") ? "0px" : "41.5px" }} >
+    <div style={{paddingTop: "0px"}} >
       <Card
         style={{border:"1px solid gainsboro",borderRadius:"10px"}}
         extra= {

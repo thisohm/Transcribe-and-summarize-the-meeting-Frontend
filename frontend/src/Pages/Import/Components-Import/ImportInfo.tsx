@@ -110,11 +110,9 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
     }, 6000);
   };
 
-  console.log(fileUpload[0])
-
   return (
     <Form onFinish={onSubmit}>
-      <div style={{padding:"50px",margin:"auto",width:"800px"}}>
+      <div style={{padding:"50px",margin:"auto",width:"800px",height:"700px"}}>
 
         <Form.Item 
           name="title" 
@@ -175,12 +173,13 @@ const ImportInfo = ({backStep,nextStep,setDisStep1,setDisStep2,setDisStep3,setDi
       </div>
 
         <Form.Item style={{padding:"20px"}}>
-          <Button style={{marginRight:"5px"}} type='primary' onClick={backStep}>Back</Button>
+          <Button style={{width:"80px",height:"40px",marginRight:"5px"}} type='primary' onClick={backStep}>Back</Button>
             <Button 
               type="primary"
               htmlType="submit"
               loading={loadings[1]}
               disabled={(title==="" || fileUpload[0]===undefined) ? true : false}
+              style={{width:"100px",height:"40px"}}
               onClick={() => enterLoading(1)}
               >
               Submit

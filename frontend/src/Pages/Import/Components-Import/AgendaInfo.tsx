@@ -77,7 +77,7 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
   return(
     
     <Form onFinish={onFinish}>
-      <div style={{padding:"auto",margin:"auto",width:"1100px"}}>
+      <div style={{padding:"auto",margin:"auto",width:"1100px",height:"700px"}}>
 
         <Form.List initialValue={state} name="AgenList">
           {(values, { add, remove }) => (
@@ -143,7 +143,7 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
             ))}
             
               <Form.Item>
-                <Button type="dashed" disabled={values.length>4} 
+                <Button type="dashed" disabled={values.length>9} 
                   onClick={() => {
                   add()
                   handleAdd()
@@ -151,7 +151,7 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
                   block 
                   icon={<PlusSquareOutlined />}
                 >
-                  Add field
+                  Add topic
                 </Button>
               </Form.Item>
 
@@ -162,8 +162,8 @@ const AgendaInfo = ({ backStep, nextStep, setDisStep3, agendaData,setAgendaData,
       </div>
 
         <Form.Item style={{padding:"20px"}}>
-          <Button style={{marginRight:"5px"}} type="primary" htmlType="submit" onClick={backStep}>Back</Button>
-          <Button type="primary" htmlType="submit">Next</Button>
+          <Button style={{width:"80px",height:"40px",marginRight:"5px"}}type="primary" htmlType="submit" onClick={backStep}>Back</Button>
+          <Button style={{width:"80px",height:"40px"}} type="primary" htmlType="submit">Next</Button>
         </Form.Item>
     
     </Form>

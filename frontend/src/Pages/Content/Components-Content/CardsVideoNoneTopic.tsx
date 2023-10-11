@@ -333,7 +333,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword,setContent,content,setAction,act
 
     const menuItemsSub = [
       {label: 'Edit',icon:<EditOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>,key:'edit'},
-      {label: 'Insert',icon:<PlusCircleOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>, key: 'insert'},
+      /*{label: 'Insert',icon:<PlusCircleOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>, key: 'insert'},*/
       {label: 'Delete',icon:<CloseCircleOutlined style={{color:"red",fontSize:"14px"}} />, key: 'delete'},
     ];
   
@@ -390,7 +390,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword,setContent,content,setAction,act
       let value = e.target.value;
   
       if( isSelected ){
-        setSelectedItems( [...selectedItems, value ].join('') )
+        setSelectedItems( [...selectedItems, value ] )
       }else{
         setSelectedItems((prevData:any)=>{
           return prevData.filter((text:any)=>{
@@ -406,7 +406,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword,setContent,content,setAction,act
       }else{
         const alltext = dataSub.map((item:any)=>{
           return item.text
-        }).join('')
+        })
         setSelectedItems( alltext )
       }
     }
@@ -503,7 +503,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword,setContent,content,setAction,act
         {Rows}
       </Lists>
     }
-
+    
   return (
     <>
       <Row justify={"space-between"} style={{fontSize:"16px",paddingBottom:"10px"}}>
@@ -521,7 +521,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword,setContent,content,setAction,act
               <SaveOutlined />Save
             </Button>
 
-            <Button type="primary" onClick={checkAllHandler} >
+            <Button type="primary" onClick={checkAllHandler} onFocus={pauseVDO}>
               <CheckOutlined />{ dataSub.length === selectedItems.length ? 'Unselect All' : 'Select all' }
             </Button>
 
@@ -530,14 +530,14 @@ const CardsVideoNoneTopic = ({dataVideo,keyword,setContent,content,setAction,act
                 tab === "content" ? 
                   ()=>
                     { 
-                      setContent(content + selectedItems) 
+                      setContent(content + selectedItems.join('')) 
                       setSelectedItems( [] )
                       message.success("Copied")
                     }
                     :
                   ()=>
                     { 
-                      setAction(action + selectedItems) 
+                      setAction(action + selectedItems.join('')) 
                       setSelectedItems( [] )
                       message.success("Copied")
                     }

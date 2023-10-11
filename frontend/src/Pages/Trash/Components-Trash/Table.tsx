@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react';
 import './index.css';
-import { Table,Popconfirm,Space } from 'antd';
+import { Table,Popconfirm,Space,Badge } from 'antd';
 import axios from "axios"
 import {
   DeleteOutlined,
@@ -18,6 +18,12 @@ const TrashTable = () => {
 
     const columns = [
       {
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
+        width: 100,
+      },
+      {
         title: 'Topic',
         dataIndex: 'topic',
         key: 'topic',
@@ -27,13 +33,19 @@ const TrashTable = () => {
         title: 'Type of Meeting',
         dataIndex: 'meettype',
         key: 'meettype',
-        width: 250
+        width: 200
       },
       {
-        title: 'Created',
-        dataIndex: 'created_timestamp',
-        key: 'created_timestamp',
-        width: 250
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      width: 125,
+      },
+      {
+      title: 'Time',
+      dataIndex: 'time',
+      key: 'time',
+      width: 125,
       },
       {
         title: 'Action',
@@ -53,8 +65,8 @@ const TrashTable = () => {
       .then(axios.spread(({...meeting}) => {
         setTrashList(meeting.data.result.map((item:any,index:any) => 
           ({
-            key:index,meeting_id:item.meeting_id,topic:item.topic,meettype:item.meettype,
-            created_timestamp:dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A"),
+            key:index,status: <Badge status="error" text="Delete" />,meeting_id:item.meeting_id,topic:item.topic,meettype:item.meettype,
+            date:dayjs(item.meetdate).format("ddd, MMM D, YYYY"),time:item.meettime,
             action:
             <Space size={'middle'}>
               <Popconfirm

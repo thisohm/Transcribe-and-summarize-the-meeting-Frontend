@@ -152,6 +152,21 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       if(key==='5'){
         setCurtime(Math.abs(TimeCodeToSeconds(dataAgen[4].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)))
       }
+      if(key==='6'){
+        setCurtime(Math.abs(TimeCodeToSeconds(dataAgen[5].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)))
+      }
+      if(key==='7'){
+        setCurtime(Math.abs(TimeCodeToSeconds(dataAgen[6].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)))
+      }
+      if(key==='8'){
+        setCurtime(Math.abs(TimeCodeToSeconds(dataAgen[7].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)))
+      }
+      if(key==='9'){
+        setCurtime(Math.abs(TimeCodeToSeconds(dataAgen[8].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)))
+      }
+      if(key==='10'){
+        setCurtime(Math.abs(TimeCodeToSeconds(dataAgen[9].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)))
+      }
     };
 
     //function video
@@ -247,9 +262,59 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
             setActiveTabKey1('4')
           }
         }
+        if(dataAgen.length>5){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[4]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime)) && audio.currentTime < Math.abs(TimeCodeToSeconds(dataAgen[5]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('5')
+          }
+        }
         if(dataAgen.length==5){
           if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[4]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
             setActiveTabKey1('5')
+          }
+        }
+        if(dataAgen.length>6){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[5]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime)) && audio.currentTime < Math.abs(TimeCodeToSeconds(dataAgen[6]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('6')
+          }
+        }
+        if(dataAgen.length==6){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[5]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('6')
+          }
+        }
+        if(dataAgen.length>7){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[6]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime)) && audio.currentTime < Math.abs(TimeCodeToSeconds(dataAgen[7]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('7')
+          }
+        }
+        if(dataAgen.length==7){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[6]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('7')
+          }
+        }
+        if(dataAgen.length>8){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[7]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime)) && audio.currentTime < Math.abs(TimeCodeToSeconds(dataAgen[8]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('8')
+          }
+        }
+        if(dataAgen.length==8){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[7]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('8')
+          }
+        }
+        if(dataAgen.length>9){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[8]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime)) && audio.currentTime < Math.abs(TimeCodeToSeconds(dataAgen[9]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('9')
+          }
+        }
+        if(dataAgen.length==9){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[8]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('9')
+          }
+        }
+        if(dataAgen.length==10){
+          if(audio?.currentTime >= Math.abs(TimeCodeToSeconds(dataAgen[9]?.agentime)-TimeCodeToSeconds(dataMeeting[0]?.meettime))){
+            setActiveTabKey1('10')
           }
         }
       }
@@ -398,7 +463,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
 
     const menuItemsSub = [
       {label: 'Edit',icon:<EditOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>,key:'edit'},
-      {label: 'Insert',icon:<PlusCircleOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>, key: 'insert'},
+      /*{label: 'Insert',icon:<PlusCircleOutlined style={{color:"dodgerblue",fontSize:"14px"}}/>, key: 'insert'},*/
       {label: 'Delete',icon:<CloseCircleOutlined style={{color:"red",fontSize:"14px"}} />, key: 'delete'},
     ];
   
@@ -455,7 +520,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       let value = e.target.value;
   
       if( isSelected ){
-        setSelectedItems( [...selectedItems, value ].join('') )
+        setSelectedItems( [...selectedItems, value ] )
       }else{
         setSelectedItems((prevData:any)=>{
           return prevData.filter((text:any)=>{
@@ -471,7 +536,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       }else{
         const alltext = dataSub.map((item:any)=>{
           return item.text
-        }).join('')
+        })
         setSelectedItems( alltext )
       }
     }
@@ -1161,8 +1226,758 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
     )
 
     const Tab5 = ({ index, style }:any) => (
-      dataAgen.length > '4' ?
+      dataAgen.length > '5' ?
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[4].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
+          &&  TimeCodeToSeconds(dataSub[index].start_time) < Math.abs(TimeCodeToSeconds(dataAgen[5].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+      :
       TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[4].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+    )
+
+    const Tab6 = ({ index, style }:any) => (
+      dataAgen.length > '6' ?
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[5].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
+          &&  TimeCodeToSeconds(dataSub[index].start_time) < Math.abs(TimeCodeToSeconds(dataAgen[6].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+      :
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[5].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+    )
+
+    const Tab7 = ({ index, style }:any) => (
+      dataAgen.length > '7' ?
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[6].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
+          &&  TimeCodeToSeconds(dataSub[index].start_time) < Math.abs(TimeCodeToSeconds(dataAgen[7].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+      :
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[6].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+    )
+
+    const Tab8 = ({ index, style }:any) => (
+      dataAgen.length > '8' ?
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[7].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
+          &&  TimeCodeToSeconds(dataSub[index].start_time) < Math.abs(TimeCodeToSeconds(dataAgen[8].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+      :
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[7].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+    )
+
+    const Tab9 = ({ index, style }:any) => (
+      dataAgen.length > '9' ?
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[8].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) 
+          &&  TimeCodeToSeconds(dataSub[index].start_time) < Math.abs(TimeCodeToSeconds(dataAgen[9].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+      :
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[8].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
+      <div style={style}>
+        <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
+            onClick={()=>{
+              pauseVDO()
+              setIndexI(index)
+              setIndexUpdate(index)
+              setCurtime(Number(parseInt(dataSub[index].start_time.split(':')[0])*3600) + Number(parseInt(dataSub[index].start_time.split(':')[1])*60) + Number(parseFloat(dataSub[index].start_time.split(':')[2]).toFixed(3)))
+            }}
+            >
+              <List.Item>
+                <Row justify={'space-between'}>
+                  <Col>
+                    <Space>
+                      <label>
+                        <input checked={ selectedItems.includes( dataSub[index].text ) } value={dataSub[index].text} onChange={checkboxHandler} type="checkbox"></input>
+                      </label>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].start_time}
+                      </p>
+                      <div>-</div>
+                      <p style={{fontSize:"16px"}}>
+                        {dataSub[index].end_time}
+                      </p>
+                    </Space>
+                  </Col>
+                  <Col>
+                    <Space>
+                      <CopyOutlined style={{fontSize:"13px",color:"gray"}} 
+                        onClick={
+                          tab === "content" ? 
+                            ()=>
+                              { 
+                                setContent(content + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                              :
+                            ()=>
+                              { 
+                                setAction(action + dataSub[index].text) 
+                                message.success("Copied")
+                              }
+                        }/>
+                        <Dropdown placement="bottomRight" overlay={menuSubDropdown} trigger={['click']}>
+                          <EllipsisOutlined />
+                        </Dropdown>
+                    </Space>
+                  </Col>
+                </Row>
+              </List.Item>
+              <List.Item>
+              <div id="sub-text">
+                    <Row justify={'space-between'}>
+                      <Col style={{paddingLeft:"20px"}}>
+                        <Highlight style={{fontSize:"16px"}} 
+                          onClick={(e:any) => {
+                            setCardHighLight(true)
+                            doubleClick(e.detail)
+                          }} 
+                          search={keyword} type="text">
+                            {dataSub[index].text}
+                        </Highlight>
+                      </Col>
+                    </Row>
+                </div>
+              </List.Item>
+            </List.Item>
+        </div>
+      :
+      <div style={style}>
+        <Skeleton/>
+      </div>
+    )
+
+    const Tab10 = ({ index, style }:any) => (
+      dataAgen.length > '9' ?
+      TimeCodeToSeconds(dataSub[index].start_time) >= Math.abs(TimeCodeToSeconds(dataAgen[9].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
       <div style={style}>
         <List.Item id = {"sTime"+dataSub[index].sub_id}  style={{border:(index === indexUpdate ) ? "1px solid dodgerblue" : "1px solid lightgray",borderRadius:"10px",padding:"10px"}}
             onClick={()=>{
@@ -1244,62 +2059,112 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       0: 
       <Lists
         ref={listRef}
-        width={780}
-        height={605}
+        width={625}
+        height={540}
         itemCount={dataSub.length}
-        itemSize={80}
+        itemSize={75}
         >
         {Main}
       </Lists>,
       1:
       <Lists
         ref={listRef}
-        width={780}
-        height={605}
+        width={625}
+        height={540}
         itemCount={dataSub.length}
-        itemSize={80}
+        itemSize={75}
         >
         {Tab1}
       </Lists>,
       2:
       <Lists
         ref={listRef}
-        width={780}
-        height={605}
+        width={625}
+        height={540}
         itemCount={dataSub.length}
-        itemSize={80}
+        itemSize={75}
         >
         {Tab2}
       </Lists>,
       3:
       <Lists
         ref={listRef}
-        width={780}
-        height={605}
+        width={625}
+        height={540}
         itemCount={dataSub.length}
-        itemSize={80}
+        itemSize={75}
         >
         {Tab3}
       </Lists>,
       4:
       <Lists
         ref={listRef}
-        width={780}
-        height={605}
+        width={625}
+        height={540}
         itemCount={dataSub.length}
-        itemSize={80}
+        itemSize={75}
         >
         {Tab4}
       </Lists>,
       5:
       <Lists
         ref={listRef}
-        width={780}
-        height={605}
+        width={625}
+        height={540}
         itemCount={dataSub.length}
-        itemSize={80}
+        itemSize={75}
         >
         {Tab5}
+      </Lists>,
+      6:
+      <Lists
+        ref={listRef}
+        width={625}
+        height={540}
+        itemCount={dataSub.length}
+        itemSize={75}
+        >
+        {Tab6}
+      </Lists>,
+      7:
+      <Lists
+        ref={listRef}
+        width={625}
+        height={540}
+        itemCount={dataSub.length}
+        itemSize={75}
+        >
+        {Tab7}
+      </Lists>,
+      8:
+      <Lists
+        ref={listRef}
+        width={625}
+        height={540}
+        itemCount={dataSub.length}
+        itemSize={75}
+        >
+        {Tab8}
+      </Lists>,
+      9:
+      <Lists
+        ref={listRef}
+        width={625}
+        height={540}
+        itemCount={dataSub.length}
+        itemSize={75}
+        >
+        {Tab9}
+      </Lists>,
+      10:
+      <Lists
+        ref={listRef}
+        width={625}
+        height={540}
+        itemCount={dataSub.length}
+        itemSize={75}
+        >
+        {Tab10}
       </Lists>,
     } 
     
@@ -1320,7 +2185,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
               <SaveOutlined />Save
             </Button>
 
-            <Button type="primary" onClick={checkAllHandler} >
+            <Button type="primary" onClick={checkAllHandler} onFocus={pauseVDO}>
               <CheckOutlined />{ dataSub.length === selectedItems.length ? 'Unselect All' : 'Select all' }
             </Button>
 
@@ -1329,14 +2194,14 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                 tab === "content" ? 
                   ()=>
                     { 
-                      setContent(content + selectedItems) 
+                      setContent(content + selectedItems.join('')) 
                       setSelectedItems( [] )
                       message.success("Copied")
                     }
                     :
                   ()=>
                     { 
-                      setAction(action + selectedItems) 
+                      setAction(action + selectedItems.join('')) 
                       setSelectedItems( [] )
                       message.success("Copied")
                     }

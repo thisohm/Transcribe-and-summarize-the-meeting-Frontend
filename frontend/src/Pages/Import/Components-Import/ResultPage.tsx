@@ -8,10 +8,10 @@ const ResultPage = () => {
             status="success"
             title="Create Meeting Success"
             extra={[
-            <Button type="primary" key="console" href="/meeting">
+            <Button style={{width:"120px",height:"35px"}} type="primary"  href="/meeting">
                 Go Meetings
             </Button>,
-            <Button key="buy" href="/import">Create Meetings</Button>,
+            <Button style={{width:"140px",height:"35px"}} href="/import">Create Meetings</Button>,
         ]}
         />
     </>

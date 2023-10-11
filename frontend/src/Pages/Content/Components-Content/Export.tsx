@@ -9,7 +9,7 @@ import dayjs from "dayjs"
 const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen,dataVideo}:any) => {
     const {meeting_id} = useParams()
     const [dataSub,setDataSub]:any[] = useState([])
-    const [fileName,setFileName] = useState<String>("")
+    const [fileName,setFileName] = useState<String>(dataMeeting?.topic)
     const [fileType,setFileType] = useState<String>("")
     const [ok,setOk] = useState(true)
 
@@ -753,7 +753,7 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
         <Form>
         <div style={{paddingTop:"10px"}}>
             <Form.Item> 
-                <Input onChange={(e)=>onChangeFile(e.target.value)} placeholder="Input file name"/>
+                <Input defaultValue={dataMeeting?.topic} onChange={(e)=>onChangeFile(e.target.value)} placeholder="Input file name"/>
             </Form.Item>
             <Form.Item>
                 <Select

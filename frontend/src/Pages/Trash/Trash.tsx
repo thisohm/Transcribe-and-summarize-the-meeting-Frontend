@@ -16,7 +16,7 @@ const Trash:FC = () => {
                         <p style={{padding:"15px",fontSize:"16px",fontWeight:"bold",color:"#3F3F3F"}}>Trash</p> 
                     </Col>
                     <Col style={{padding:"15px"}}>
-                        <Button type="primary" href="/import"><PlusSquareOutlined />Create Meetings</Button>
+                        <Button style={{width:"160px",height:"35px"}} type="primary" href="/import"><PlusSquareOutlined />Create Meetings</Button>
                     </Col>
                 </Row>
                 <div style={{padding:"25px",margin:"auto",width:"auto"}}>

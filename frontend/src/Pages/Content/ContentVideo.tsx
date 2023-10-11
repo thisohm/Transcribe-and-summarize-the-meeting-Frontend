@@ -1,3 +1,4 @@
+import './../../index.css';
 import {FC,useEffect,useState} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
@@ -16,7 +17,6 @@ import CardTextArea from './Components-Content/CardTextArea'
 import Export from './Components-Content/Export'
 import dayjs from "dayjs"
 import { Link } from 'react-router-dom';
-import { Footer } from 'antd/es/layout/layout'
 import { RotatingLines } from  'react-loader-spinner'
 const { Content } = Layout;
 const { Search } = Input;
@@ -383,7 +383,7 @@ const ContentVideo:FC = () => {
                         <LeftCircleFilled/>
                         </Link>
                         </p>
-                        <p style={{fontSize:"24px", paddingBottom:"10px",fontWeight:"bold",color:"#3F3F3F"}}>{item.topic}</p>
+                        <p style={{fontSize:"24px", fontWeight:"bold",color:"#3F3F3F",paddingBottom:"10px"}}>{item.topic}</p>
                           <Space>
                             <p><CalendarOutlined /></p>
                             <p style={{fontSize:"16px",color:"#3F3F3F"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
@@ -405,7 +405,7 @@ const ContentVideo:FC = () => {
                   }
                 </Col>
                 <Col>
-                <Space>
+                  <Space>
                     <Search 
                       placeholder="Search text" 
                       onSearch={onSearch} 
@@ -428,31 +428,39 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}} >
-                <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
-                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+              <Content style={{marginTop:"20px"}}>
+                <Row style={{height:"130px",marginBottom:"10px"}}>
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                  <audio 
+                      id="audio"
+                      style={{width:"100%",height:"100px",border:"1px solid gainsboro",borderRadius:"10px",paddingBottom:"20px"}}
+                      controls preload="metadata" 
+                    > 
+                      {
+                        dataVideo.map((item:any,index:any) => {
+                          return(                    
+                            <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/mp3"/>     
+                          )
+                        })
+                      }
+                      <track
+                        label="ซับไทย"
+                        kind="subtitles"
+                        src={demo_url}
+                        default
+                      />
+                    </audio>
                   </Col>
-                  <Col span={12}>
+                  <Col span={14}>
                     <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
+                <Row>
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                  </Col>
+                </Row>
               </Content>
-              <Footer style={{padding:"0px"}}>
-                <audio
-                  id="audio" 
-                  style={{width:"100%",borderRadius:"8px"}}
-                  controls preload="metadata" 
-                > 
-                  {
-                    dataVideo.map((item:any,index:any) => {
-                      return(                    
-                        <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/mp3"/>     
-                      )
-                    })
-                  }
-                </audio>
-              </Footer>
             </Layout> 
           )   
         }
@@ -492,7 +500,7 @@ const ContentVideo:FC = () => {
                   }
                 </Col>
                 <Col>
-                <Space>
+                  <Space>
                     <Search 
                       placeholder="Search text" 
                       onSearch={onSearch} 
@@ -515,32 +523,40 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}} >
-                <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
-                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} content={content} setContent={setContent} setAction={setAction} action={action}/>
+              <Content style={{marginTop:"20px"}}>
+                <Row style={{height:"130px",marginBottom:"10px"}}>
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                  <audio 
+                      id="audio"
+                      style={{width:"100%",height:"100px",border:"1px solid gainsboro",borderRadius:"10px",paddingBottom:"20px"}}
+                      controls preload="metadata" 
+                    > 
+                      {
+                        dataVideo.map((item:any,index:any) => {
+                          return(                    
+                            <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/mp3"/>     
+                          )
+                        })
+                      }
+                      <track
+                        label="ซับไทย"
+                        kind="subtitles"
+                        src={demo_url}
+                        default
+                      />
+                    </audio>
                   </Col>
-                  <Col span={12}>
+                  <Col span={14}>
                     <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
+                <Row>
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                  </Col>
+                </Row>
               </Content>
-              <Footer style={{padding:"0px"}}>
-                <audio 
-                  id="audio"
-                  style={{width:"100%",borderRadius:"8px"}}
-                  controls preload="metadata"
-                > 
-                  {
-                    dataVideo.map((item:any,index:any) => {
-                      return(                    
-                        <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/mp3"/>     
-                      )
-                    })
-                  }
-                </audio>
-              </Footer>
-            </Layout> 
+            </Layout>
           )   
         }
         if(file_extention === "wav" && dataAgenda === true){ //audio wav file have topic
@@ -557,7 +573,7 @@ const ContentVideo:FC = () => {
                         <LeftCircleFilled/>
                         </Link>
                         </p>
-                        <p style={{fontSize:"24px", paddingBottom:"10px",fontWeight:"bold",color:"#3F3F3F"}}>{item.topic}</p>
+                        <p style={{fontSize:"24px", fontWeight:"bold",color:"#3F3F3F",paddingBottom:"10px"}}>{item.topic}</p>
                           <Space>
                             <p><CalendarOutlined /></p>
                             <p style={{fontSize:"16px",color:"#3F3F3F"}}>{dayjs(item.created_timestamp).format("ddd, MMM D, YYYY HH:mm:ss A")}</p>
@@ -579,7 +595,7 @@ const ContentVideo:FC = () => {
                   }
                 </Col>
                 <Col>
-                <Space>
+                  <Space>
                     <Search 
                       placeholder="Search text" 
                       onSearch={onSearch} 
@@ -602,32 +618,40 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}} >
-                <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
-                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+              <Content style={{marginTop:"20px"}}>
+                <Row style={{height:"130px",marginBottom:"10px"}}>
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                  <audio 
+                      id="audio"
+                      style={{width:"100%",height:"100px",border:"1px solid gainsboro",borderRadius:"10px",paddingBottom:"20px"}}
+                      controls preload="metadata" 
+                    > 
+                      {
+                        dataVideo.map((item:any,index:any) => {
+                          return(                    
+                            <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/wav"/>     
+                          )
+                        })
+                      }
+                      <track
+                        label="ซับไทย"
+                        kind="subtitles"
+                        src={demo_url}
+                        default
+                      />
+                    </audio>
                   </Col>
-                  <Col span={12}>
+                  <Col span={14}>
                     <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
+                <Row>
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                  </Col>
+                </Row>
               </Content>
-              <Footer style={{padding:"0px"}}>
-                <audio
-                  id="audio" 
-                  style={{width:"100%",borderRadius:"8px"}}
-                  controls preload="metadata" 
-                > 
-                  {
-                    dataVideo.map((item:any,index:any) => {
-                      return(                    
-                        <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/wav"/>     
-                      )
-                    })
-                  }
-                </audio>
-              </Footer>
-            </Layout> 
+            </Layout>
           )   
         }
         if(file_extention === "wav" && dataAgenda === false){ //audio wav file none topic
@@ -666,7 +690,7 @@ const ContentVideo:FC = () => {
                   }
                 </Col>
                 <Col>
-                <Space>
+                  <Space>
                     <Search 
                       placeholder="Search text" 
                       onSearch={onSearch} 
@@ -689,31 +713,39 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}} >
-                <Row>
-                  <Col span={12} style={{paddingRight:"20px",paddingBottom:"20px"}}>
-                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+              <Content style={{marginTop:"20px"}}>
+                <Row style={{height:"130px",marginBottom:"10px"}}>
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                  <audio 
+                      id="audio"
+                      style={{width:"100%",height:"100px",border:"1px solid gainsboro",borderRadius:"10px",paddingBottom:"20px"}}
+                      controls preload="metadata" 
+                    > 
+                      {
+                        dataVideo.map((item:any,index:any) => {
+                          return(                    
+                            <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/wav"/>     
+                          )
+                        })
+                      }
+                      <track
+                        label="ซับไทย"
+                        kind="subtitles"
+                        src={demo_url}
+                        default
+                      />
+                    </audio>
                   </Col>
-                  <Col span={12}>
+                  <Col span={14}>
                     <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
+                <Row>
+                  <Col span={10} style={{paddingRight:"20px"}}>
+                    <CardsAudioNoneTopic tab={tab} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                  </Col>
+                </Row>
               </Content>
-              <Footer style={{padding:"0px"}}>
-                <audio 
-                  id="audio"
-                  style={{width:"100%",borderRadius:"8px"}}
-                  controls preload="metadata" 
-                > 
-                  {
-                    dataVideo.map((item:any,index:any) => {
-                      return(                    
-                        <source key={index} src={'http://localhost:13001/api/video/download?video_id='+ item.video_id} type="audio/wav"/>     
-                      )
-                    })
-                  }
-                </audio>
-              </Footer>
             </Layout> 
           )   
         }

@@ -63,7 +63,7 @@ dateValue, setDateValue, timeInitial, setTimeInitial, timeValue, setTimeValue }:
 
 	return(
     <Form onFinish={onFinish}>
-      <div style={{padding:"50px",margin:"auto",width:"800px"}}>
+      <div style={{padding:"50px",margin:"auto",width:"800px",height:"700px"}}>
               
       	<Form.Item 
           name="meettype" 
@@ -163,7 +163,7 @@ dateValue, setDateValue, timeInitial, setTimeInitial, timeValue, setTimeValue }:
       </div>
       
       <Form.Item style={{padding:"20px"}}>
-        <Button type='primary' htmlType='submit'>Next</Button>
+        <Button style={{width:"80px",height:"40px"}} type='primary' htmlType='submit'>Next</Button>
       </Form.Item>
 
     </Form>
