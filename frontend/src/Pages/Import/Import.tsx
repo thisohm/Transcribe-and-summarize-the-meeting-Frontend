@@ -93,7 +93,7 @@ const Import:FC = () => {
   return (
 	<div style={{margin:"10px"}}>
     <p style={{padding:"15px",fontSize:"16px",fontWeight:"bold",color:"#3F3F3F"}}>Create Meetings</p>
-      <Steps style={{padding:"50px",margin:"auto"}} onChange={setStep} current={step}
+      <Steps style={{padding:"40px",margin:"auto"}} onChange={setStep} current={step}
         items={[
           {
             disabled: disStep1,

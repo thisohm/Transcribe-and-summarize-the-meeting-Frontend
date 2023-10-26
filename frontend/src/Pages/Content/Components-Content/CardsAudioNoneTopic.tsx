@@ -496,7 +496,7 @@ const CardsAudioNoneTopic = ({tab,dataVideo,keyword,setContent,content,setAction
     <Lists
       ref={listRef}
       width={625}
-      height={540}
+      height={550}
       itemCount={dataSub.length}
       itemSize={75}
     >
@@ -525,7 +525,7 @@ return (
             <CheckOutlined />{ dataSub.length === selectedItems.length ? 'Unselect All' : 'Select all' }
           </Button>
 
-          <Button type="primary" 
+          <Button type="primary" disabled={(selectedItems.length>0 ? false : true)}
             onClick={
               tab === "content" ? 
                 ()=>

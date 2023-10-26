@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { Card,Button, message,Popconfirm,Popover} from 'antd';
+import { Card,Button, message,Popconfirm,Popover,Alert,Space,Row,Col} from 'antd';
 import Action from './Components-TextArea/Action';
 import Content from './Components-TextArea/Content';
 import { RetweetOutlined } from '@ant-design/icons';
@@ -34,24 +34,31 @@ const CardTextArea = ({file_extention,setTab,setContent,content,setAction,action
       <Card
         style={{border:"1px solid gainsboro",borderRadius:"10px"}}
         extra= {
-            <Popconfirm
-              title= {(activeTabKey1 === "content") ? "Reset the content" : "Reset the action"}
-              description={(activeTabKey1 === "content") ? "Are you sure to delete this content" : "Are you sure to delete this action"}
-              onConfirm={(activeTabKey1 === "content") ?
-              () => {
-                setContent("")
-                message.success("Reset content success")
-              }
-              :
-              () => {
-                setAction("")
-                message.success("Reset action success")
-              }}
-              okText="reset"
-              cancelText="cancle"
-            >
-            <Button type="primary"> <RetweetOutlined />Reset</Button>
-            </Popconfirm>
+                <Row>
+                  <Col span={20} style={{width:"970px",paddingRight:"40px"}}>
+                    <Alert message={(activeTabKey1 === "content") ? "สรุปการประชุม" : "มอบหมายหน้าที่"} type="info" showIcon style={{fontSize:"16px"}}/>
+                  </Col>
+                  <Col span={4}>
+                    <Popconfirm
+                      title= {(activeTabKey1 === "content") ? "Reset the content" : "Reset the action"}
+                      description={(activeTabKey1 === "content") ? "Are you sure to delete this content" : "Are you sure to delete this action"}
+                      onConfirm={(activeTabKey1 === "content") ?
+                      () => {
+                        setContent("")
+                        message.success("Reset content success")
+                      }
+                      :
+                      () => {
+                        setAction("")
+                        message.success("Reset action success")
+                      }}
+                      okText="reset"
+                      cancelText="cancle"
+                    >
+                    <Button type="primary"> <RetweetOutlined />Reset</Button>
+                    </Popconfirm>
+                  </Col>
+                </Row>
         }
         tabList={tabList}
         activeTabKey={activeTabKey1}

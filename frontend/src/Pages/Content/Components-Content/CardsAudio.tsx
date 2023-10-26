@@ -2060,7 +2060,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2070,7 +2070,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2080,7 +2080,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2090,7 +2090,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2100,7 +2100,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2110,7 +2110,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2120,7 +2120,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2130,7 +2130,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2140,7 +2140,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2150,7 +2150,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2160,7 +2160,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       <Lists
         ref={listRef}
         width={625}
-        height={540}
+        height={550}
         itemCount={dataSub.length}
         itemSize={75}
         >
@@ -2189,7 +2189,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
               <CheckOutlined />{ dataSub.length === selectedItems.length ? 'Unselect All' : 'Select all' }
             </Button>
 
-            <Button type="primary" 
+            <Button type="primary" disabled={(selectedItems.length>0 ? false : true)}
               onClick={
                 tab === "content" ? 
                   ()=>

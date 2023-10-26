@@ -13,7 +13,7 @@ const Meeting: FC = () => {
             <Content>
                 <Row justify={'space-between'}>
                     <Col>
-                        <p style={{padding:"15px",fontSize:"16px",fontWeight:"bold",color:"#3F3F3F"}}>Meeting</p> 
+                        <p style={{padding:"15px",fontSize:"16px",fontWeight:"bold",color:"#3F3F3F"}}>Meetings</p> 
                     </Col>
                     <Col style={{padding:"15px"}}>
                         <Button style={{width:"160px",height:"35px"}} type="primary" href="/import"><PlusSquareOutlined />Create Meetings</Button>

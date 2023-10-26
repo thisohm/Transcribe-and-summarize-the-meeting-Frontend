@@ -525,7 +525,7 @@ const CardsVideoNoneTopic = ({dataVideo,keyword,setContent,content,setAction,act
               <CheckOutlined />{ dataSub.length === selectedItems.length ? 'Unselect All' : 'Select all' }
             </Button>
 
-            <Button type="primary" 
+            <Button type="primary" disabled={(selectedItems.length>0 ? false : true)}
               onClick={
                 tab === "content" ? 
                   ()=>

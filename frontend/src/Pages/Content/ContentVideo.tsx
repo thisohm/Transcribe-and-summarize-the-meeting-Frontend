@@ -53,7 +53,7 @@ const ContentVideo:FC = () => {
     useEffect(() => {
       localStorage.setItem(String(meeting_id+'action'),JSON.stringify(action))
     })
-
+    
     //localstorage content
     useEffect(() => {
       const data = localStorage.getItem(String(meeting_id+'content'))
@@ -238,7 +238,7 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}}>
+              <Content style={{marginTop:"10px"}}>
                 <Row style={{height:"230px",marginBottom:"10px"}}>
                   <Col span={10} style={{paddingLeft:"120px"}}>
                   <video 
@@ -333,7 +333,7 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}}>
+              <Content style={{marginTop:"10px"}}>
                 <Row style={{height:"230px",marginBottom:"10px"}}>
                   <Col span={10} style={{paddingLeft:"120px"}}>
                   <video 
@@ -428,8 +428,8 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}}>
-                <Row style={{height:"130px",marginBottom:"10px"}}>
+              <Content style={{marginTop:"10px"}}>
+                <Row style={{height:"130px"}}>
                   <Col span={10} style={{paddingRight:"20px"}}>
                   <audio 
                       id="audio"
@@ -523,8 +523,8 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}}>
-                <Row style={{height:"130px",marginBottom:"10px"}}>
+              <Content style={{marginTop:"10px"}}>
+                <Row style={{height:"130px"}}>
                   <Col span={10} style={{paddingRight:"20px"}}>
                   <audio 
                       id="audio"
@@ -618,8 +618,8 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}}>
-                <Row style={{height:"130px",marginBottom:"10px"}}>
+              <Content style={{marginTop:"10px"}}>
+                <Row style={{height:"130px"}}>
                   <Col span={10} style={{paddingRight:"20px"}}>
                   <audio 
                       id="audio"
@@ -713,8 +713,8 @@ const ContentVideo:FC = () => {
                   </Space>
                 </Col>
               </Row>
-              <Content style={{marginTop:"20px"}}>
-                <Row style={{height:"130px",marginBottom:"10px"}}>
+              <Content style={{marginTop:"10px"}}>
+                <Row style={{height:"130px"}}>
                   <Col span={10} style={{paddingRight:"20px"}}>
                   <audio 
                       id="audio"
