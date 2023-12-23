@@ -13,18 +13,19 @@ import Import from "../Pages/Import/Import";
 import Meeting from "../Pages/Meeting/Meeting";
 import Trash from "../Pages/Trash/Trash";
 import Content from "../Pages/Content/ContentVideo";
-import Startpage from "../Pages/Start/Startpage";
+import EditPage from "../Pages/EditMeeting/EditMeeting";
 
 const PageContent:FC = () => {
 
   return(
 
     <Routes>
-      <Route path="/" Component={Startpage}></Route>
+      {/*<Route path="/" Component={Startpage}></Route>*/}
       <Route path="/meeting" Component={Meeting}></Route>
       <Route path="/import" Component={Import}></Route>
       <Route path="/trash" Component={Trash}></Route>
       <Route path="/meeting/:meeting_id" Component={Content}></Route>
+      <Route path="/edit/:meeting_id" Component={EditPage} ></Route>
     </Routes>
   )
 }

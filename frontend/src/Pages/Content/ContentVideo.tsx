@@ -30,11 +30,24 @@ const ContentVideo:FC = () => {
     const [dataVideo,setDataVideo]:any[] = useState([])
     const [demo_url,setURL] = useState("")
     const [loading,setLoading] = useState(false)
+
     const [action,setAction] = useState("")
     const [content,setContent] = useState("")
+    const [content1,setContent1] = useState("")
+    const [content2,setContent2] = useState("")
+    const [content3,setContent3] = useState("")
+    const [content4,setContent4] = useState("")
+    const [content5,setContent5] = useState("")
+    const [content6,setContent6] = useState("")
+    const [content7,setContent7] = useState("")
+    const [content8,setContent8] = useState("")
+    const [content9,setContent9] = useState("")
+    const [content10,setContent10] = useState("")
+    const [tab,setTab] = useState<String>("content")
+    const [subTab,setSubTab] = useState<String>("Main")
+
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [keyword,setKeyword] = useState<String>("")
-    const [tab,setTab] = useState<String>("content")
 
     //load data
     useEffect(() => {
@@ -55,16 +68,128 @@ const ContentVideo:FC = () => {
     })
     
     //localstorage content
+
+    //Main
     useEffect(() => {
-      const data = localStorage.getItem(String(meeting_id+'content'))
+      const data = localStorage.getItem(String(meeting_id+'content'+'Main'))
       if (data) {
         setContent(JSON.parse(data))
       }
     }, [])
     useEffect(() => {
-      localStorage.setItem(String(meeting_id+'content'),JSON.stringify(content))
+      localStorage.setItem(String(meeting_id+'content'+'Main'),JSON.stringify(content))
+    })
+
+    //Topic1
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic1'))
+      if (data) {
+        setContent1(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic1'),JSON.stringify(content1))
+    })
+
+    //Topic2
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic2'))
+      if (data) {
+        setContent2(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic2'),JSON.stringify(content2))
+    })
+
+    //Topic3
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic3'))
+      if (data) {
+        setContent3(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic3'),JSON.stringify(content3))
+    })
+
+    //Topic4
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic4'))
+      if (data) {
+        setContent4(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic4'),JSON.stringify(content4))
+    })
+
+    //Topic5
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic5'))
+      if (data) {
+        setContent5(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic5'),JSON.stringify(content5))
+    })
+
+    //Topic6
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic6'))
+      if (data) {
+        setContent6(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic6'),JSON.stringify(content6))
+    })
+
+    //Topic7
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic7'))
+      if (data) {
+        setContent7(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic7'),JSON.stringify(content7))
     })
     
+    //Topic8
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic8'))
+      if (data) {
+        setContent8(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic8'),JSON.stringify(content8))
+    })
+
+    //Topic9
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic9'))
+      if (data) {
+        setContent9(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic9'),JSON.stringify(content9))
+    })
+
+    //Topic10
+    useEffect(() => {
+      const data = localStorage.getItem(String(meeting_id+'content'+'Topic10'))
+      if (data) {
+        setContent10(JSON.parse(data))
+      }
+    }, [])
+    useEffect(() => {
+      localStorage.setItem(String(meeting_id+'content'+'Topic10'),JSON.stringify(content10))
+    })
+
     const loadDataMeeting = async (meeting_id:any) => {
 
           let config = {
@@ -160,7 +285,7 @@ const ContentVideo:FC = () => {
     const onSearch = (value:String) =>{
       setKeyword(value)
     }
-
+    
   return (
     <>
     { loading ?
@@ -179,7 +304,7 @@ const ContentVideo:FC = () => {
       dataVideo.map((item:any,index:any)=>{
         const file_extention = ((item.video_path).substring((item.video_path).lastIndexOf(".") + 1))
         
-        if(file_extention === "mp4" && dataAgenda === true){ //vidoe file have topic
+        if(file_extention === "mp4" && dataAgenda === true){ //video file have topic
           return (
             <Layout key={index} style={{margin:"25px"}}>
               <Row style={{justifyContent:"space-between"}}>
@@ -262,19 +387,47 @@ const ContentVideo:FC = () => {
                     </video>
                   </Col>
                   <Col span={14}>
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardTextArea meeting_id={meeting_id} setTab={setTab} 
+                      setContent={setContent} content={content}  
+                      setContent1={setContent1} content1={content1}
+                      setContent2={setContent2} content2={content2} 
+                      setContent3={setContent3} content3={content3} 
+                      setContent4={setContent4} content4={content4} 
+                      setContent5={setContent5} content5={content5} 
+                      setContent6={setContent6} content6={content6} 
+                      setContent7={setContent7} content7={content7} 
+                      setContent8={setContent8} content8={content8} 
+                      setContent9={setContent9} content9={content9} 
+                      setContent10={setContent10} content10={content10}  
+                      setAction={setAction} action={action}
+                      setSubTab={setSubTab}
+                      subTab={subTab}
+                    />
                   </Col>
                 </Row>
                 <Row>
                   <Col span={10} style={{paddingRight:"20px"}}>
-                    <CardsVideo tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardsVideo tab={tab} subTab={subTab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} 
+                    setContent={setContent} content={content} 
+                    setContent1={setContent1} content1={content1}
+                    setContent2={setContent2} content2={content2} 
+                    setContent3={setContent3} content3={content3} 
+                    setContent4={setContent4} content4={content4} 
+                    setContent5={setContent5} content5={content5} 
+                    setContent6={setContent6} content6={content6} 
+                    setContent7={setContent7} content7={content7} 
+                    setContent8={setContent8} content8={content8} 
+                    setContent9={setContent9} content9={content9} 
+                    setContent10={setContent10} content10={content10}
+                    setAction={setAction} action={action}
+                    />
                   </Col>
                 </Row>
               </Content>
             </Layout> 
           )
         }
-        if(file_extention === "mp4" && dataAgenda === false){ //vidoe file none topic
+        if(file_extention === "mp4" && dataAgenda === false){ //video file none topic
           return (
             <Layout key={index} style={{margin:"25px"}}>
               <Row style={{justifyContent:"space-between"}}>
@@ -357,7 +510,7 @@ const ContentVideo:FC = () => {
                     </video>
                   </Col>
                   <Col span={14}>
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardTextArea setTab={setTab} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
                 <Row>
@@ -433,7 +586,7 @@ const ContentVideo:FC = () => {
                   <Col span={10} style={{paddingRight:"20px"}}>
                   <audio 
                       id="audio"
-                      style={{width:"100%",height:"100px",border:"1px solid gainsboro",borderRadius:"10px",paddingBottom:"20px"}}
+                      style={{width:"100%",height:"100px",paddingBottom:"20px"}}
                       controls preload="metadata" 
                     > 
                       {
@@ -452,12 +605,40 @@ const ContentVideo:FC = () => {
                     </audio>
                   </Col>
                   <Col span={14}>
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardTextArea meeting_id={meeting_id} setTab={setTab} 
+                        setContent={setContent} content={content}  
+                        setContent1={setContent1} content1={content1}
+                        setContent2={setContent2} content2={content2} 
+                        setContent3={setContent3} content3={content3} 
+                        setContent4={setContent4} content4={content4} 
+                        setContent5={setContent5} content5={content5} 
+                        setContent6={setContent6} content6={content6} 
+                        setContent7={setContent7} content7={content7} 
+                        setContent8={setContent8} content8={content8} 
+                        setContent9={setContent9} content9={content9} 
+                        setContent10={setContent10} content10={content10}  
+                        setAction={setAction} action={action}
+                        setSubTab={setSubTab}
+                        subTab={subTab}
+                      />
                   </Col>
                 </Row>
                 <Row>
                   <Col span={10} style={{paddingRight:"20px"}}>
-                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardsAudio tab={tab} subTab={subTab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} 
+                    setContent={setContent} content={content} 
+                    setContent1={setContent1} content1={content1}
+                    setContent2={setContent2} content2={content2} 
+                    setContent3={setContent3} content3={content3} 
+                    setContent4={setContent4} content4={content4} 
+                    setContent5={setContent5} content5={content5} 
+                    setContent6={setContent6} content6={content6} 
+                    setContent7={setContent7} content7={content7} 
+                    setContent8={setContent8} content8={content8} 
+                    setContent9={setContent9} content9={content9} 
+                    setContent10={setContent10} content10={content10}
+                    setAction={setAction} action={action}
+                    />
                   </Col>
                 </Row>
               </Content>
@@ -528,7 +709,7 @@ const ContentVideo:FC = () => {
                   <Col span={10} style={{paddingRight:"20px"}}>
                   <audio 
                       id="audio"
-                      style={{width:"100%",height:"100px",border:"1px solid gainsboro",borderRadius:"10px",paddingBottom:"20px"}}
+                      style={{width:"100%",height:"100px",paddingBottom:"20px"}}
                       controls preload="metadata" 
                     > 
                       {
@@ -547,7 +728,7 @@ const ContentVideo:FC = () => {
                     </audio>
                   </Col>
                   <Col span={14}>
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardTextArea setTab={setTab} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
                 <Row>
@@ -623,7 +804,7 @@ const ContentVideo:FC = () => {
                   <Col span={10} style={{paddingRight:"20px"}}>
                   <audio 
                       id="audio"
-                      style={{width:"100%",height:"100px",border:"1px solid gainsboro",borderRadius:"10px",paddingBottom:"20px"}}
+                      style={{width:"100%",height:"100px",paddingBottom:"20px"}}
                       controls preload="metadata" 
                     > 
                       {
@@ -642,12 +823,40 @@ const ContentVideo:FC = () => {
                     </audio>
                   </Col>
                   <Col span={14}>
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardTextArea meeting_id={meeting_id} setTab={setTab} 
+                        setContent={setContent} content={content}  
+                        setContent1={setContent1} content1={content1}
+                        setContent2={setContent2} content2={content2} 
+                        setContent3={setContent3} content3={content3} 
+                        setContent4={setContent4} content4={content4} 
+                        setContent5={setContent5} content5={content5} 
+                        setContent6={setContent6} content6={content6} 
+                        setContent7={setContent7} content7={content7} 
+                        setContent8={setContent8} content8={content8} 
+                        setContent9={setContent9} content9={content9} 
+                        setContent10={setContent10} content10={content10}  
+                        setAction={setAction} action={action}
+                        setSubTab={setSubTab}
+                        subTab={subTab}
+                      />
                   </Col>
                 </Row>
                 <Row>
                   <Col span={10} style={{paddingRight:"20px"}}>
-                    <CardsAudio tab={tab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardsAudio tab={tab} subTab={subTab} dataMeeting={dataMeeting} dataAgen={dataAgen} dataVideo={dataVideo} keyword={keyword} 
+                      setContent={setContent} content={content} 
+                      setContent1={setContent1} content1={content1}
+                      setContent2={setContent2} content2={content2} 
+                      setContent3={setContent3} content3={content3} 
+                      setContent4={setContent4} content4={content4} 
+                      setContent5={setContent5} content5={content5} 
+                      setContent6={setContent6} content6={content6} 
+                      setContent7={setContent7} content7={content7} 
+                      setContent8={setContent8} content8={content8} 
+                      setContent9={setContent9} content9={content9} 
+                      setContent10={setContent10} content10={content10}
+                      setAction={setAction} action={action}
+                      />
                   </Col>
                 </Row>
               </Content>
@@ -718,7 +927,7 @@ const ContentVideo:FC = () => {
                   <Col span={10} style={{paddingRight:"20px"}}>
                   <audio 
                       id="audio"
-                      style={{width:"100%",height:"100px",border:"1px solid gainsboro",borderRadius:"10px",paddingBottom:"20px"}}
+                      style={{width:"100%",height:"100px",paddingBottom:"20px"}}
                       controls preload="metadata" 
                     > 
                       {
@@ -737,7 +946,7 @@ const ContentVideo:FC = () => {
                     </audio>
                   </Col>
                   <Col span={14}>
-                    <CardTextArea setTab={setTab} file_extention={file_extention} setContent={setContent} content={content} setAction={setAction} action={action}/>
+                    <CardTextArea setTab={setTab} setContent={setContent} content={content} setAction={setAction} action={action}/>
                   </Col>
                 </Row>
                 <Row>

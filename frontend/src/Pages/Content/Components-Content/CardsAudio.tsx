@@ -14,7 +14,19 @@ import { v4 as uuidv4 } from 'uuid';
 import { FixedSizeList as Lists } from 'react-window';
 import axios from 'axios'
 
-const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,setAction,action,tab}:any) => {
+const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,
+                    setContent,content,
+                    setContent1,content1,
+                    setContent2,content2,
+                    setContent3,content3,
+                    setContent4,content4,
+                    setContent5,content5,
+                    setContent6,content6,
+                    setContent7,content7,
+                    setContent8,content8,
+                    setContent9,content9,
+                    setContent10,content10,
+                    setAction,action,tab,subTab}:any) => {
     const audio = document.getElementById("audio") as HTMLVideoElement | null;  
     const { meeting_id } = useParams()
     const [activeTabKey1, setActiveTabKey1] = useState<string>('0');
@@ -550,6 +562,53 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
       }
     }
 
+    const selectSubTab = (subTab:any,sub:any) =>{
+      if(subTab === "Main"){
+        setContent(content + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic1"){
+        setContent1(content1 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic2"){
+        setContent2(content2 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic3"){
+        setContent3(content3 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic4"){
+        setContent4(content4 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic5"){
+        setContent5(content5 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic6"){
+        setContent6(content6 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic7"){
+        setContent7(content7 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic8"){
+        setContent8(content8 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic9"){
+        setContent9(content9 + sub) 
+        message.success("Copied")
+      }
+      if(subTab === "Topic10"){
+        setContent10(content10 + sub) 
+        message.success("Copied")
+      }
+    }
+
     const Main = ({ index, style }:any) => (
       TimeCodeToSeconds(dataSub[index].start_time) >= 0 && TimeCodeToSeconds(dataSub[index].start_time) < Math.abs(TimeCodeToSeconds(dataAgen[0].agentime)-TimeCodeToSeconds(dataMeeting[0].meettime)) ? 
       <div style={style}>
@@ -584,8 +643,11 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                         tab === "content" ? 
                           ()=>
                             { 
+                              selectSubTab(subTab,dataSub[index].text)
+                              /*
                               setContent(content + dataSub[index].text) 
                               message.success("Copied")
+                              */
                             }
                             :
                           ()=>
@@ -661,8 +723,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -734,8 +795,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -811,8 +871,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -884,8 +943,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -961,8 +1019,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1034,8 +1091,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1111,8 +1167,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1184,8 +1239,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1261,8 +1315,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1334,8 +1387,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1411,8 +1463,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1484,8 +1535,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1561,8 +1611,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1634,8 +1683,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1711,8 +1759,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1784,8 +1831,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1861,8 +1907,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -1934,8 +1979,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -2010,8 +2054,7 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                           tab === "content" ? 
                             ()=>
                               { 
-                                setContent(content + dataSub[index].text) 
-                                message.success("Copied")
+                                selectSubTab(subTab,dataSub[index].text)
                               }
                               :
                             ()=>
@@ -2194,9 +2237,8 @@ const CardsAudio = ({dataMeeting,dataAgen,dataVideo,keyword,setContent,content,s
                 tab === "content" ? 
                   ()=>
                     { 
-                      setContent(content + selectedItems.join('')) 
+                      selectSubTab(subTab,selectedItems.join(''))
                       setSelectedItems( [] )
-                      message.success("Copied")
                     }
                     :
                   ()=>

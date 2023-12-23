@@ -3,7 +3,8 @@ import './index.css'
 import { Table,Popconfirm, Space,Popover,Badge } from 'antd';
 import axios from "axios"
 import {
-  DeleteOutlined
+  DeleteOutlined,
+  EditOutlined
 } from "@ant-design/icons"
 import dayjs from "dayjs"
 import { useNavigate } from 'react-router-dom';
@@ -111,7 +112,15 @@ const DataTable = () => {
           date:dayjs(item.meetdate).format("ddd, MMM D, YYYY"),time:item.meettime,
           action:
           <Space size={'middle'}>
-            <br></br>
+            <Popconfirm
+              title="Edit the meeting"
+              description="Are you sure to edit this meeting?"
+              okText="Yes"
+              cancelText="No"
+              onConfirm={()=>navigate(`/edit/${item.meeting_id}`)}
+            >
+              <EditOutlined style={{color:"dodgerblue"}} />
+            </Popconfirm>
             <Popconfirm
               title="Move the meeting to trash"
               description="Are you sure to move this meeting  to trash?"

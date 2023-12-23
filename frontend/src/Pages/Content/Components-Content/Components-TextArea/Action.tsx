@@ -3,7 +3,7 @@ import {Input} from 'antd'
 
 const { TextArea } = Input;
 
-const Action = ({file_extention,setAction,action}:any) => {
+const Action = ({setAction,action}:any) => {
     return (
         <TextArea
             value={action}

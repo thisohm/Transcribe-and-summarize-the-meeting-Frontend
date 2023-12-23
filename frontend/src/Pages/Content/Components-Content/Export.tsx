@@ -148,13 +148,13 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                     ],
                 }),*/
                 new Paragraph({
-                    text: "Content",
+                    text: "Content-Main",
                     heading: HeadingLevel.HEADING_3
                 }),
                 new Paragraph({
                     children: [
                         new TextRun({
-                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"))),
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Main"))),
                             size: 22
                         })
                     ]
@@ -446,13 +446,178 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                     :{}     
                 ),*/
                 new Paragraph({
-                    text: "Content",
+                    text: "Content-Main",
                     heading: HeadingLevel.HEADING_3
                 }),
                 new Paragraph({
                     children: [
                         new TextRun({
-                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"))),
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Main"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph({
+                    text: "Content-"+ dataAgen[0]?.agentopic,
+                    heading: HeadingLevel.HEADING_3
+                }),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic1"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>1) ?
+                    {
+                        text: "Content-"+ dataAgen[1]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic2"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>2) ?
+                    {
+                        text: "Content-"+ dataAgen[2]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic3"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>3) ?
+                    {
+                        text: "Content-"+ dataAgen[3]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic4"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>4) ?
+                    {
+                        text: "Content-"+ dataAgen[4]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic5"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>5) ?
+                    {
+                        text: "Content-"+ dataAgen[5]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic6"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>6) ?
+                    {
+                        text: "Content-"+ dataAgen[6]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic7"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>7) ?
+                    {
+                        text: "Content-"+ dataAgen[7]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic8"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>8) ?
+                    {
+                        text: "Content-"+ dataAgen[8]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic9"))),
+                            size: 22
+                        })
+                    ]
+                }),
+                new Paragraph(
+                    (dataAgen.length>9) ?
+                    {
+                        text: "Content-"+ dataAgen[9]?.agentopic,
+                        heading: HeadingLevel.HEADING_3
+                    }
+                    :
+                    {}
+                ),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic10"))),
                             size: 22
                         })
                     ]
@@ -496,7 +661,7 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                 }
             }).join('') + "\n" + "\n" + */
             "Content" + "\n" + 
-            JSON.parse(String(localStorage.getItem(meeting_id+"content"))) + "\n" + "\n" +
+            JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Main"))) + "\n" + "\n" +
             "Action" + "\n" + 
             JSON.parse(String(localStorage.getItem(meeting_id+"action")))
         :
@@ -698,8 +863,28 @@ const Export = ({ModalOpen,setModalOpen,video_id,dataMeeting,dataAgenda,dataAgen
                     }
                 }).join('')
             :"") + "\n" + "\n" + */
-            "Content" + "\n" + 
-            JSON.parse(String(localStorage.getItem(meeting_id+"content"))) + "\n" + "\n" +
+            "Content-Main" + "\n" + 
+            JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Main"))) + "\n" + "\n" +
+            "Content"+ dataAgen[0]?.agentopic + "\n" + 
+            JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic1"))) + "\n" + "\n" +
+            (dataAgen.length>1 ? "Content-"+ dataAgen[1]?.agentopic : "") + "\n" + 
+            (dataAgen.length>1 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic2"))) : "") + "\n" + "\n" +
+            (dataAgen.length>2 ? "Content-"+ dataAgen[2]?.agentopic : "") + "\n" + 
+            (dataAgen.length>2 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic3"))) : "") + "\n" + "\n" +
+            (dataAgen.length>3 ? "Content-"+ dataAgen[3]?.agentopic : "") + "\n" + 
+            (dataAgen.length>3 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic4"))) : "") + "\n" + "\n" +
+            (dataAgen.length>4 ? "Content-"+ dataAgen[4]?.agentopic : "") + "\n" + 
+            (dataAgen.length>4 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic5"))) : "") + "\n" + "\n" +
+            (dataAgen.length>5 ? "Content-"+ dataAgen[5]?.agentopic : "") + "\n" + 
+            (dataAgen.length>5 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic6"))) : "") + "\n" + "\n" +
+            (dataAgen.length>6 ? "Content-"+ dataAgen[6]?.agentopic : "") + "\n" + 
+            (dataAgen.length>6 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic7"))) : "") + "\n" + "\n" +
+            (dataAgen.length>7 ? "Content-"+ dataAgen[7]?.agentopic : "") + "\n" + 
+            (dataAgen.length>7 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic8"))) : "") + "\n" + "\n" +
+            (dataAgen.length>8 ? "Content-"+ dataAgen[8]?.agentopic : "") + "\n" + 
+            (dataAgen.length>8 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic9"))) : "") + "\n" + "\n" +
+            (dataAgen.length>9 ? "Content-"+ dataAgen[9]?.agentopic : "") + "\n" + 
+            (dataAgen.length>9 ? JSON.parse(String(localStorage.getItem(meeting_id+"content"+"Topic10"))) : "") + "\n" + "\n" +
             "Action" + "\n" + 
             JSON.parse(String(localStorage.getItem(meeting_id+"action")))
         )         

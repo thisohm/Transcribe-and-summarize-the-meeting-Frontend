@@ -134,7 +134,17 @@ const TrashTable = () => {
         console.log(error)
       })
       localStorage.removeItem(String(meeting_id+'follow'))
-      localStorage.removeItem(String(meeting_id+'content'))
+      localStorage.removeItem(String(meeting_id+'content'+'Main'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic1'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic2'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic3'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic4'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic5'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic6'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic7'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic8'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic9'))
+      localStorage.removeItem(String(meeting_id+'content'+'Topic10'))
       window.location.reload()
     }
 
